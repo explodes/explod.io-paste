@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='explod.io',
-    version='0.01',
+    version='1.0',
     packages=['explodio'],
     url='http://explod.io/',
     license='MIT',
