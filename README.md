@@ -1,4 +1,7 @@
-explod.io-paste
+explod.io
 ===============
 
-Code pasting for explod.io
+explod.io website
+
+- /paste/
+

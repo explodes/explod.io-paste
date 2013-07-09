@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/paste.css" />
+{% endblock css %}
+
+{% block content %}
+<aside>
+    {% if pastes|length %}
+    <ul>
+        {% for paste in pastes %}
+            <li>
+                <a href="{{ paste.get_absolute_url }}">{{ paste }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</aside>
+{% endblock content %}

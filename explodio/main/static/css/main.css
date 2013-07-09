@@ -1,0 +1,18 @@
+body {
+    background-image: url('../img/noise.png');
+}
+article {
+    margin:0 auto;
+    width:64px;
+}
+section {
+    position:absolute;top:50%;
+    height:28px;
+    margin-top:-14px;
+}
+header {
+    color:#3C2712;
+    font-family:courier,arial,sans-serif;
+    font-weight:600;
+    font-size:24px;
+}

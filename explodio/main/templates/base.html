@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% block title %}explod.io{% endblock title %}</title>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/reset.css" />
+    {% block css %}{% endblock css %}
+</head>
+  <body>
+    {% block content %}{% endblock content %}
+    {% block js %}{% endblock js %}
+  </body>
+</html>
