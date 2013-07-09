@@ -52,6 +52,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
 
+    'south',
+
     'explodio.main',
     'explodio.paste',
 )
