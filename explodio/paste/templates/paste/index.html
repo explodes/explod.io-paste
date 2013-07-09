@@ -2,4 +2,14 @@
 
 {% block content %}
 {{ block.super }}
+
+<section>
+    <form id="paste-form" method="post" action="">
+        <article id="form-center">
+            {{ paste_form.as_p }}
+            {% csrf_token %}
+            <button type="submit">Paste It!</button>
+        </article>
+    </form>
+</section>
 {% endblock content %}
