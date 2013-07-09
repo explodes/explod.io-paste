@@ -1,6 +1,7 @@
 import random
 
 from django.db import models
+from django.utils import timezone
 
 from pygments import highlight
 from pygments.formatters.html import HtmlFormatter
@@ -43,8 +44,8 @@ class Paste(models.Model):
         Use the `pygments` library to create a highlighted HTML
         representation of the code snippet.
         """
-        if self.slug is None:
-            self.slug = '%02x' % random.getrandbits(512)
+        if not self.slug:
+            self.slug = '%02x' % random.getrandbits(256)
 
         lexer = get_lexer_by_name(self.language)
         options = self.title and {'title': self.title} or {}
@@ -56,6 +57,11 @@ class Paste(models.Model):
     def __unicode__(self):
         return self.title
 
+    @property
+    def expired(self):
+        now = timezone.now()
+        return self.expires_at <= now
+
     @models.permalink
     def get_absolute_url(self):
-        return 'explodio:paste:paste', (), {'slug' : self.slug}
+        return 'paste:paste', (), {'slug' : self.slug}

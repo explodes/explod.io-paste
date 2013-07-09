@@ -5,15 +5,5 @@
 {% endblock css %}
 
 {% block content %}
-<aside>
-    {% if pastes|length %}
-    <ul>
-        {% for paste in pastes %}
-            <li>
-                <a href="{{ paste.get_absolute_url }}">{{ paste }}</a>
-            </li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-</aside>
+<header>paste</header>
 {% endblock content %}

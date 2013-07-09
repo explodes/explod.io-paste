@@ -1,0 +1,47 @@
+body {
+    background-image: url('../img/noise.png');
+    color:#3C2712;
+    font-family:courier,arial,sans-serif;
+    font-size:20px;
+}
+header{
+    font-size:56px;
+    width:100%;
+    text-align:center;
+}
+a{
+    color:#3C2712;
+    text-decoration:none;
+}
+nav#pastes{
+    float:left;
+    margin-left:80px;
+    width:0;
+    font-size:12px;
+}
+nav#pastes li{
+    height:14px;
+    width:800px;
+}
+form#paste-form {
+    width:600px;
+    height:550px;
+    margin:0 auto;
+    border:2px solid #3C2712;
+    padding:12px;
+}
+#form-center{
+    width:400px;
+    margin:0 auto;
+}
+form#paste-form label{
+    display:table-cell;
+
+}
+form#paste-form select, form#paste-form input, form#paste-form textarea, form#paste-form button, form#paste-form label{
+    width:400px;
+}
+#paste{
+    margin:0 auto;
+    width:800px;
+}
