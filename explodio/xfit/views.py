@@ -1,4 +1,6 @@
 from datetime import date
+
+from django import http
 from django.views.generic import TemplateView
 
 from explodio.common import iterator
@@ -132,4 +134,44 @@ class IndexView(XFitContextView):
             'extra_gyms' : extra_gyms,
         }
         ctx.update(additional)
+
+        print 'GET CTX DATA'
+
         return ctx
+
+    def post(self, request, *args, **kwargs):
+        """
+        Handle POST method.
+        :param request: View request
+        :param args: View *args
+        :param kwargs: View **kwargs
+        :return: HttpResponse
+        """
+        action = request.POST.get('action')
+
+        if action == 'update-wods':
+            return self.post_update_wods(request, *args, **kwargs)
+
+        # Unknown action
+        return http.HttpResponseBadRequest()
+
+    def post_update_wods(self, request, *args, **kwargs):
+        """
+        POST UserWODForm data.
+        :param request: View request
+        :param args: View *args
+        :param kwargs: View **kwargs
+        :return: HttpResponse
+        """
+        ctx = self.get_context_data(**kwargs)
+
+        wod_forms = ctx['wod_forms']
+
+        valid = all((wod_form.is_valid() for wod_form in wod_forms))
+
+        if valid:
+            for wod_form in wod_forms:
+                wod_form.save()
+
+        return self.render_to_response(ctx)
+

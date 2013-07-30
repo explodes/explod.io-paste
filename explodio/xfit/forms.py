@@ -102,9 +102,17 @@ class UserWODForm(object):
         :return: A django Form
         """
         if self.workout_type == models.Workout.WORKOUT_TYPE_TIMED:
-            return TimeForm(self.data)
+            if self.user_wod:
+                initial = {'time': self.user_wod.time}
+            else:
+                initial = None
+            return TimeForm(self.data, initial=initial)
         elif self.workout_type == models.Workout.WORKOUT_TYPE_AMRAP:
-            return RoundsForm(self.data)
+            if self.user_wod:
+                initial = {'rounds': self.user_wod.rounds}
+            else:
+                initial = None
+            return RoundsForm(self.data, initial=initial)
         else:
             raise Exception('Unknown workout type')
 
@@ -141,7 +149,7 @@ class UserWODForm(object):
             pairs = itertools.izip(goals, wod_exercises)
         else:
             goals = self.wod.workout.exercises.order_by('item_group', 'order')
-            wod_exercises = self.user_wod.exercises.all()
+            wod_exercises = self.user_wod.wod_exercises.all()
             pairs = iterator.pair_left(goals, wod_exercises,
                 searcher=lambda goal, wod_exercise: \
                     wod_exercise.goal.id == goal.id)
@@ -199,10 +207,15 @@ class UserWODForm(object):
             user_wod.time = None
             user_wod.rounds = self.score_form.cleaned_data['rounds']
 
+        wod_exercises = []
         for wod_exercise_form in self.wod_exercise_forms:
-            wod_exercise_form.save(user_wod, commit=commit)
+            wod_exercise = wod_exercise_form.save(user_wod, commit=False)
+            wod_exercises.append(wod_exercise)
 
         if commit:
             user_wod.save()
+            for wod_exercise in wod_exercises:
+                wod_exercise.user_wod = user_wod
+                wod_exercise.save()
 
         return user_wod

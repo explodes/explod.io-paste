@@ -222,7 +222,7 @@ class UserWOD(models.Model):
         ordering = ('-wod__day', 'user')
 
     def __unicode__(self):
-        return u'"%s" for "%s"' % (self.wod, self.get_full_name())
+        return u'"%s" for "%s"' % (self.wod, self.user.username)
 
 class WODExercise(models.Model):
 
@@ -231,9 +231,9 @@ class WODExercise(models.Model):
     user_wod = models.ForeignKey(UserWOD, related_name='wod_exercises',
         help_text='WOD to which this exercise was a part of')
 
-    effort = models.PositiveSmallIntegerField(
+    effort = models.PositiveSmallIntegerField(null=True, blank=True,
         help_text='Effort required, generally a weight or distance')
-    reps = models.PositiveSmallIntegerField(
+    reps = models.PositiveSmallIntegerField(null=True, blank=True,
         help_text='How many times the movement is repeated, or for how far')
     notes = models.CharField(max_length=50, blank=True, 
         help_text='Optional special instructions')

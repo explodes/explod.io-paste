@@ -104,8 +104,8 @@ class Migration(SchemaMigration):
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('goal', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['xfit.WorkoutExercise'], null=True, blank=True)),
             ('user_wod', self.gf('django.db.models.fields.related.ForeignKey')(related_name='wod_exercises', to=orm['xfit.UserWOD'])),
-            ('effort', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=100)),
-            ('reps', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=1)),
+            ('effort', self.gf('django.db.models.fields.PositiveSmallIntegerField')(null=True, blank=True)),
+            ('reps', self.gf('django.db.models.fields.PositiveSmallIntegerField')(null=True, blank=True)),
             ('notes', self.gf('django.db.models.fields.CharField')(max_length=50, blank=True)),
             ('modified_at', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
             ('created_at', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
@@ -219,12 +219,12 @@ class Migration(SchemaMigration):
         u'xfit.wodexercise': {
             'Meta': {'ordering': "('goal__workout', 'goal__item_group', 'goal__order')", 'object_name': 'WODExercise'},
             'created_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'effort': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '100'}),
+            'effort': ('django.db.models.fields.PositiveSmallIntegerField', [], {'null': 'True', 'blank': 'True'}),
             'goal': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['xfit.WorkoutExercise']", 'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'modified_at': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
             'notes': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
-            'reps': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '1'}),
+            'reps': ('django.db.models.fields.PositiveSmallIntegerField', [], {'null': 'True', 'blank': 'True'}),
             'user_wod': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'wod_exercises'", 'to': u"orm['xfit.UserWOD']"})
         },
         u'xfit.workout': {
