@@ -1,4 +1,5 @@
 
+__undefined_sentinel = object()
 
 def session_property(key_name, factory=lambda instance: None):
     """
