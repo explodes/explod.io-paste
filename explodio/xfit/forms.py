@@ -144,10 +144,13 @@ class UserWODForm(object):
         :return: list of (WorkoutExercise, WODExercise)
         """
         if not self.user_wod:
+            # If we don't have a UserWOD, join WorkoutExercises with None
             goals = self.wod.workout.exercises.order_by('item_group', 'order')
             wod_exercises = [None] * len(goals)
             pairs = itertools.izip(goals, wod_exercises)
         else:
+            # If we do have a UserWOD, join WorkoutExercises with their
+            # respective WODExercises
             goals = self.wod.workout.exercises.order_by('item_group', 'order')
             wod_exercises = self.user_wod.wod_exercises.all()
             pairs = iterator.pair_left(goals, wod_exercises,
@@ -166,12 +169,14 @@ class UserWODForm(object):
         """
         group_items = collections.OrderedDict()
 
+        # In order, add exercises to their respective group
         for goal, wod_exercise in goal_wodexercise_pairs:
             group = goal.item_group
             if group not in group_items:
                 group_items[group] = []
             group_items[group].append((goal, wod_exercise))
 
+        # For each group, yield the items in the groups `n` times
         for group, pairs in group_items.iteritems():
             goal, wod_exercise = pairs[0]
             repeat = goal.item_group_repeats
@@ -195,11 +200,14 @@ class UserWODForm(object):
         :param commit: Whether or not to commit the UserWOD to the database
         :return: The new or updated UserWOD
         """
+
+        # Create a new UserWOD if we need to, or use the initial one
         if self.user_wod is None:
             user_wod = models.UserWOD(user=self.user, wod=self.wod)
         else:
             user_wod = self.user_wod
 
+        # Save time OR rounds
         if self.workout_type == models.Workout.WORKOUT_TYPE_TIMED:
             user_wod.time = self.score_form.cleaned_data['time']
             user_wod.rounds = None
@@ -207,11 +215,13 @@ class UserWODForm(object):
             user_wod.time = None
             user_wod.rounds = self.score_form.cleaned_data['rounds']
 
+        # Create a list of WODExercises to save (or not)
         wod_exercises = []
         for wod_exercise_form in self.wod_exercise_forms:
             wod_exercise = wod_exercise_form.save(user_wod, commit=False)
             wod_exercises.append(wod_exercise)
 
+        # If we need to commit, save the UserWOD 1st, then the related objects
         if commit:
             user_wod.save()
             for wod_exercise in wod_exercises:
