@@ -18,6 +18,7 @@ STATICFILES_DIRS = ()
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
 )
 
 TEMPLATE_LOADERS = (
@@ -54,6 +55,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
 
     'south',
+    'compressor',
 
     'explodio.main',
     'explodio.paste',
@@ -84,6 +86,7 @@ LOGGING = {
     }
 }
 
+COMPRESS_ENABLED = True
 
 try:
     from local_settings import *

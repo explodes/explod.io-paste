@@ -18,12 +18,15 @@ d888 '88%"     8888        888I  888I   888R    888R I888>  888E  888E          
                            '8>
                             "                                                                     
 -->
-    <title>{% block title %}explod.io{% endblock title %}</title>
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/reset.css" />
-    {% block css %}{% endblock css %}
+{% load compress %}
+  <title>{% block title %}explod.io{% endblock title %}</title>
+  {% compress css %}
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/reset.css" />
+  {% block css %}{% endblock css %}
+  {% endcompress %}
 </head>
   <body>
     {% block content %}{% endblock content %}
-    {% block js %}{% endblock js %}
+    {% compress js %}{% block js %}{% endblock js %}{% endcompress %}
   </body>
 </html>
