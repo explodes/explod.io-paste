@@ -113,6 +113,26 @@ class IndexView(XFitContextView):
 
     template_name = 'xfit/index.html'
 
+    def get_day(self, **kwargs):
+        """
+        Extra a date from kwargs 'year', 'month', and 'day'
+        :param kwargs: Request **kwargs
+        :return: Date, today by default
+        """
+        year = kwargs.get('year')
+        month = kwargs.get('month')
+        day = kwargs.get('day')
+        result = None
+        if year and month and day:
+            try:
+                result = date(int(year), int(month), int(day))
+            except: # Invalid input
+                pass
+        if not result:
+            result = date.today()
+        return result
+
+
     def get_context_data(self, **kwargs):
         """
         Supply context to index.html
@@ -125,7 +145,9 @@ class IndexView(XFitContextView):
 
         gyms = ctx['gyms']
 
-        wod_forms = self.get_wod_forms(self.request.POST or None)
+        day = self.get_day(**kwargs)
+
+        wod_forms = self.get_wod_forms(self.request.POST or None, day=day)
         gyms_with_wods = set((wod_form.wod.gym for wod_form in wod_forms))
         extra_gyms = set(gyms) - set(gyms_with_wods)
 
@@ -134,9 +156,6 @@ class IndexView(XFitContextView):
             'extra_gyms' : extra_gyms,
         }
         ctx.update(additional)
-
-        print 'GET CTX DATA'
-
         return ctx
 
     def post(self, request, *args, **kwargs):

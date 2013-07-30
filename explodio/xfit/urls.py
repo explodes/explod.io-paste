@@ -4,8 +4,13 @@ from explodio.xfit import views
 
 
 urlpatterns = patterns('',
-    # The home page.
+    # The WOD page.
     url(r'^$', views.IndexView.as_view(), name='index'),
+
+    # The WOD page stats.
+    url(r'^(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/$',
+        views.IndexView.as_view(),
+        name='index'),
 
     # The comparison page.
 
