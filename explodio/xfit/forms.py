@@ -12,13 +12,13 @@ class TimeForm(forms.Form):
     """
     Score Form for Time
     """
-    time = forms.TimeField()
+    time = forms.TimeField(required=False)
 
 class RoundsForm(forms.Form):
     """
     Score Form for Rounds
     """
-    rounds = forms.IntegerField(min_value=0)
+    rounds = forms.IntegerField(min_value=0, required=False)
 
 class WODExerciseForm(forms.ModelForm, FormHelpersMixin):
     """
@@ -106,15 +106,17 @@ class UserWODForm(object):
                 initial = {'time': self.user_wod.time}
             else:
                 initial = None
-            return TimeForm(self.data, initial=initial)
+            return TimeForm(self.data, prefix=self.prefix, initial=initial)
         elif self.workout_type == models.Workout.WORKOUT_TYPE_AMRAP:
             if self.user_wod:
                 initial = {'rounds': self.user_wod.rounds}
             else:
                 initial = None
-            return RoundsForm(self.data, initial=initial)
+            return RoundsForm(self.data, prefix=self.prefix, initial=initial)
         else:
             raise Exception('Unknown workout type')
+
+
 
     def create_wod_exercise_forms(self):
         """
@@ -129,7 +131,7 @@ class UserWODForm(object):
 
         for index, pair in enumerate(repeated_pairs):
             goal, wod_exercise = pair
-            prefix = '%s-wode-%s' % (self.prefix, index)
+            prefix = '%sex%s' % (self.prefix, index)
             wod_exercise_form = WODExerciseForm(goal, self.data,
                 instance=wod_exercise, prefix=prefix)
             wod_exercise_forms.append(wod_exercise_form)

@@ -1,6 +1,7 @@
-from datetime import date
+from datetime import date, timedelta
 
 from django import http
+from django.contrib import messages
 from django.views.generic import TemplateView
 
 from explodio.common import iterator
@@ -34,7 +35,8 @@ class XFitView(TemplateView):
         """
         if day is None:
             day = date.today()
-        return models.WorkoutOfTheDay.objects.for_day(day)
+        q = models.WorkoutOfTheDay.objects.for_day(day)
+        return q
 
     def get_user_wods(self, user=None, day=None):
         """
@@ -47,10 +49,11 @@ class XFitView(TemplateView):
             user = self.request.user
         if day is None:
             day = date.today()
-        return models.UserWOD.objects \
+        q = models.UserWOD.objects \
             .for_user(user) \
             .for_day(day) \
             .select_related('wod')
+        return q
 
     def get_wod_pairs(self, user=None, day=None):
         """
@@ -138,6 +141,9 @@ class IndexView(XFitContextView):
         Supply context to index.html
         - wod_forms (list of UserWODForm)
         - extra_gyms (gyms that don't have WODs for the given day)
+        - day (day being displayed)
+        - yesterday (previous day)
+        - tomorrow (next day)
         :param kwargs: Request **kwargs
         :return: Context dict
         """
@@ -146,6 +152,8 @@ class IndexView(XFitContextView):
         gyms = ctx['gyms']
 
         day = self.get_day(**kwargs)
+        yesterday = day - timedelta(days=1)
+        tomorrow = day + timedelta(days=1)
 
         wod_forms = self.get_wod_forms(self.request.POST or None, day=day)
         gyms_with_wods = set((wod_form.wod.gym for wod_form in wod_forms))
@@ -154,6 +162,9 @@ class IndexView(XFitContextView):
         additional = {
             'wod_forms' : wod_forms,
             'extra_gyms' : extra_gyms,
+            'day' : day,
+            'yesterday' : yesterday,
+            'tomorrow' : tomorrow,
         }
         ctx.update(additional)
         return ctx
@@ -191,6 +202,10 @@ class IndexView(XFitContextView):
         if valid:
             for wod_form in wod_forms:
                 wod_form.save()
+            ctx = self.get_context_data(**kwargs) # Get fresh data
+            messages.info(request, 'Workouts saved')
+        else:
+            messages.error(request, 'Form error')
 
         return self.render_to_response(ctx)
 

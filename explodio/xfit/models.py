@@ -251,12 +251,14 @@ class WODExercise(models.Model):
     def detailed_name(self):
 
         if self.goal.effort_unit:
-            effort = u'%s %s ' % (self.effort, self.goal.effort_unit)
+            effort = self.effort if self.effort is not None else '?'
+            effort = u'%s %s ' % (effort, self.goal.effort_unit)
         else:
             effort = u''
 
         if self.goal.reps_unit:
-            reps = u', %s %s' % (self.reps, self.goal.reps_unit)
+            reps = self.reps if self.reps is not None else '?'
+            reps = u', %s %s' % (reps, self.goal.reps_unit)
         else:
             reps = u''
 

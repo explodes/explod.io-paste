@@ -1,5 +1,42 @@
+body {
+    color:#444;
+}
 
+a,a:active,a:visited{
+    color:#444;
+    text-decoration:underline;
+}
 
+#messages {
+    list-style:none;
+    margin-left:0;
+    font-weight:600;
+    font-size:24px;
+}
+
+#messages li {}
+
+#messages li.info {
+    color:#083d3d;
+}
+
+#messages li.debug,#messages li.warn,#messages li.error{
+    color:#8d080d;
+}
+
+#day-nav {
+    list-style:none;
+    margin-left:0;
+    display:block;
+    font-size:16px;
+    font-weight:600;
+}
+#day-nav li {
+    display:inline-block;
+}
+#day-prev {}
+#day-now {}
+#day-next {}
 
 #formlist {
     list-style:none;
@@ -29,7 +66,7 @@
 }
 
 .wod-goal {
-    width: 250px;
+    width: 450px;
     font-size:16px;
     font-weight:600;
 }
@@ -44,4 +81,7 @@
 
 .wod-field input {
     width:50px;
+}
+.wod-field .notes input {
+    width:250px;
 }
