@@ -12,6 +12,9 @@ class Gym(models.Model):
     active = models.BooleanField(default=True, help_text='Uncheck to disable '
         'this gym on the website')
 
+    order = models.PositiveSmallIntegerField(default=0,
+        help_text='Order of appearance')
+
     modified_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -20,7 +23,7 @@ class Gym(models.Model):
     class Meta:
         verbose_name = 'gym'
         verbose_name_plural = 'gyms'
-        ordering = ('title',)
+        ordering = ('order',)
 
     def __unicode__(self):
         return self.title
@@ -46,6 +49,9 @@ class Workout(models.Model):
         help_text='What kind of goal does this workout have?')
     time_limit = models.TimeField(blank=True, null=True,
         help_text='For AMRAP, how much time is allowed')
+
+    notes= models.CharField(max_length=50, blank=True,
+        help_text='Optional special instructions')
 
     modified_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -166,10 +172,10 @@ class WorkoutOfTheDay(models.Model):
         verbose_name = 'workout of the day'
         verbose_name_plural = 'workouts of the day'
         unique_together = ('gym', 'workout')
-        ordering = ('day',)
+        ordering = ('-day',)
 
     def detailed_name(self):
-        return u'%(workout)s %(day)s' % {
+        return u'%(day)s: %(workout)s' % {
             'workout' : self.workout,
             'day' : self.day.strftime('%a %b %d, %Y')
         }
@@ -194,7 +200,7 @@ class UserWOD(models.Model):
     class Meta:
         verbose_name = 'user WOD'
         verbose_name_plural = 'user WODs'
-        ordering = ('wod', 'user')
+        ordering = ('-wod__day', 'user')
 
     def __unicode__(self):
         return u'"%s" for "%s"' % (self.wod, self.get_full_name())
@@ -219,8 +225,8 @@ class WODExercise(models.Model):
     objects = managers.WODExerciseManager()
 
     class Meta:
-        verbose_name = 'WOD exercise'
-        verbose_name_plural = 'WOD exercises'
+        verbose_name = 'user WOD exercise'
+        verbose_name_plural = 'user WOD exercises'
         ordering = ('goal__workout', 'goal__item_group', 'goal__order',)
 
     def detailed_name(self):

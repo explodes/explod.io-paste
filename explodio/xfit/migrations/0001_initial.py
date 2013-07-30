@@ -14,6 +14,7 @@ class Migration(SchemaMigration):
             ('title', self.gf('django.db.models.fields.CharField')(max_length=50)),
             ('slug', self.gf('django.db.models.fields.SlugField')(unique=True, max_length=50)),
             ('active', self.gf('django.db.models.fields.BooleanField')(default=True)),
+            ('order', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=0)),
             ('modified_at', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
             ('created_at', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
         ))
@@ -27,6 +28,7 @@ class Migration(SchemaMigration):
             ('is_hero', self.gf('django.db.models.fields.BooleanField')(default=False)),
             ('workout_type', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=2)),
             ('time_limit', self.gf('django.db.models.fields.TimeField')(null=True, blank=True)),
+            ('notes', self.gf('django.db.models.fields.CharField')(max_length=50, blank=True)),
             ('modified_at', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
             ('created_at', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
         ))
@@ -173,11 +175,12 @@ class Migration(SchemaMigration):
             'title': ('django.db.models.fields.CharField', [], {'max_length': '50'})
         },
         u'xfit.gym': {
-            'Meta': {'ordering': "('title',)", 'object_name': 'Gym'},
+            'Meta': {'ordering': "('order',)", 'object_name': 'Gym'},
             'active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'created_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'modified_at': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
+            'order': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
             'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '50'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '50'})
         },
@@ -207,6 +210,7 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'is_hero': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'modified_at': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
+            'notes': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
             'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '50'}),
             'time_limit': ('django.db.models.fields.TimeField', [], {'null': 'True', 'blank': 'True'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '50'}),

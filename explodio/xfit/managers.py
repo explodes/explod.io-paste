@@ -14,10 +14,21 @@ class WorkoutExerciseManager(managers.QuerySetManager):
     pass
 
 class WorkoutOfTheDayManager(managers.QuerySetManager):
-    pass
+
+    class QuerySet(managers.QuerySet):
+
+        def by_day(self, day):
+            return self.filter(day=day)
 
 class WODExerciseManager(managers.QuerySetManager):
     pass
 
 class UserWODManager(managers.QuerySetManager):
-    pass
+
+    class QuerySet(managers.QuerySet):
+
+        def by_day(self, day):
+            return self.filter(day=day)
+
+        def by_user(self, user):
+            return self.filter(user=user)

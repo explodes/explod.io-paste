@@ -4,7 +4,7 @@ from explodio.xfit import models
 
 
 class GymAdmin(admin.ModelAdmin):
-    list_display = ('title', 'active')
+    list_display = ('title', 'active', 'order')
     prepopulated_fields = {'slug': ('title',)}
     list_filter = ('active',)
     date_hierarchy = 'created_at'
