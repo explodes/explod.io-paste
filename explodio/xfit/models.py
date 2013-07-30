@@ -9,6 +9,8 @@ class Gym(models.Model):
     title = models.CharField(max_length=50, help_text='Title of this gym')
     slug = models.SlugField(max_length=50, unique=True,
         help_text='Used for URLs')
+    active = models.BooleanField(default=True, help_text='Uncheck to disable '
+        'this gym on the website')
 
     modified_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)

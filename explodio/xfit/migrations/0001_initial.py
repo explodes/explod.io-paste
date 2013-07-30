@@ -13,6 +13,7 @@ class Migration(SchemaMigration):
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('title', self.gf('django.db.models.fields.CharField')(max_length=50)),
             ('slug', self.gf('django.db.models.fields.SlugField')(unique=True, max_length=50)),
+            ('active', self.gf('django.db.models.fields.BooleanField')(default=True)),
             ('modified_at', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
             ('created_at', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
         ))
@@ -45,15 +46,15 @@ class Migration(SchemaMigration):
         # Adding model 'WorkoutExercise'
         db.create_table(u'xfit_workoutexercise', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('workout', self.gf('django.db.models.fields.related.ForeignKey')(related_name='exercises', to=orm['xfit.Workout'])),
+            ('item_group', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=1)),
+            ('item_group_repeats', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=1)),
             ('effort', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=100)),
             ('effort_unit', self.gf('django.db.models.fields.CharField')(default='pound', max_length=50, null=True, blank=True)),
             ('exercise', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['xfit.Exercise'])),
             ('reps', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=1)),
             ('reps_unit', self.gf('django.db.models.fields.CharField')(default='reps', max_length=50, null=True, blank=True)),
             ('notes', self.gf('django.db.models.fields.CharField')(max_length=50, blank=True)),
-            ('workout', self.gf('django.db.models.fields.related.ForeignKey')(related_name='exercises', to=orm['xfit.Workout'])),
-            ('item_group', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=1)),
-            ('item_group_repeats', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=1)),
             ('order', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=0)),
             ('modified_at', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
             ('created_at', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
@@ -88,14 +89,11 @@ class Migration(SchemaMigration):
         # Adding model 'WODExercise'
         db.create_table(u'xfit_wodexercise', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('effort', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=100)),
-            ('effort_unit', self.gf('django.db.models.fields.CharField')(default='pound', max_length=50, null=True, blank=True)),
-            ('exercise', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['xfit.Exercise'])),
-            ('reps', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=1)),
-            ('reps_unit', self.gf('django.db.models.fields.CharField')(default='reps', max_length=50, null=True, blank=True)),
-            ('notes', self.gf('django.db.models.fields.CharField')(max_length=50, blank=True)),
             ('goal', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['xfit.WorkoutExercise'], null=True, blank=True)),
             ('user_wod', self.gf('django.db.models.fields.related.ForeignKey')(related_name='exercises', to=orm['xfit.UserWOD'])),
+            ('effort', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=100)),
+            ('reps', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=1)),
+            ('notes', self.gf('django.db.models.fields.CharField')(max_length=50, blank=True)),
             ('modified_at', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
             ('created_at', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
         ))
@@ -176,6 +174,7 @@ class Migration(SchemaMigration):
         },
         u'xfit.gym': {
             'Meta': {'ordering': "('title',)", 'object_name': 'Gym'},
+            'active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'created_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'modified_at': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
@@ -195,14 +194,11 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "('goal__workout', 'goal__item_group', 'goal__order')", 'object_name': 'WODExercise'},
             'created_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'effort': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '100'}),
-            'effort_unit': ('django.db.models.fields.CharField', [], {'default': "'pound'", 'max_length': '50', 'null': 'True', 'blank': 'True'}),
-            'exercise': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['xfit.Exercise']"}),
             'goal': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['xfit.WorkoutExercise']", 'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'modified_at': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
             'notes': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
             'reps': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '1'}),
-            'reps_unit': ('django.db.models.fields.CharField', [], {'default': "'reps'", 'max_length': '50', 'null': 'True', 'blank': 'True'}),
             'user_wod': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'exercises'", 'to': u"orm['xfit.UserWOD']"})
         },
         u'xfit.workout': {

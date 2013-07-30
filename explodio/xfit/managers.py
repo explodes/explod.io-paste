@@ -1,7 +1,7 @@
 from explodio.common import managers
 
 
-class GymManager(managers.QuerySetManager):
+class GymManager(managers.ActiveQuerySetManager):
     pass
 
 class WorkoutManager(managers.QuerySetManager):

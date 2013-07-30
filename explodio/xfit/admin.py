@@ -4,8 +4,9 @@ from explodio.xfit import models
 
 
 class GymAdmin(admin.ModelAdmin):
-    list_display = ('title',)
+    list_display = ('title', 'active')
     prepopulated_fields = {'slug': ('title',)}
+    list_filter = ('active',)
     date_hierarchy = 'created_at'
     search_fields = ('title',)
 
@@ -50,8 +51,7 @@ class WorkoutOfTheDayAdmin(admin.ModelAdmin):
     readonly_fields = ('modified_at', 'created_at',)
 
 class WODExerciseAdmin(admin.ModelAdmin):
-    list_display = ('detailed_name', 'goal', 'exercise', 'effort',
-        'effort_unit', 'reps', 'reps_unit',)
+    list_display = ('detailed_name', 'goal', 'effort', 'reps')
     date_hierarchy = 'created_at'
     search_fields = ('user_wod__wod__title', 'user_wod__user__username',
         'user_wod__user__email',)

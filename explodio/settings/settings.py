@@ -41,6 +41,7 @@ WSGI_APPLICATION = 'explodio.wsgi.application'
 TEMPLATE_DIRS = (
     rel('main', 'templates'),
     rel('paste', 'templates'),
+    rel('xfit', 'templates'),
 )
 
 INSTALLED_APPS = (

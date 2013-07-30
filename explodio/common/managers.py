@@ -42,3 +42,18 @@ class QuerySetManager(models.Manager):
         if name.startswith('_'):
             raise AttributeError
         return getattr(self.get_query_set(), name, *args)
+
+
+class ActiveQuerySet(QuerySet):
+
+    def active(self):
+        return self.filter(active=True)
+
+    def inactive(self):
+        return self.filter(active=False)
+
+
+class ActiveQuerySetManager(QuerySetManager):
+
+    class QuerySet(ActiveQuerySet):
+        pass
