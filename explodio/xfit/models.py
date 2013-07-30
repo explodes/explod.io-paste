@@ -231,9 +231,9 @@ class WODExercise(models.Model):
     user_wod = models.ForeignKey(UserWOD, related_name='wod_exercises',
         help_text='WOD to which this exercise was a part of')
 
-    effort = models.PositiveSmallIntegerField(default=100,
+    effort = models.PositiveSmallIntegerField(
         help_text='Effort required, generally a weight or distance')
-    reps = models.PositiveSmallIntegerField(default=1, 
+    reps = models.PositiveSmallIntegerField(
         help_text='How many times the movement is repeated, or for how far')
     notes = models.CharField(max_length=50, blank=True, 
         help_text='Optional special instructions')

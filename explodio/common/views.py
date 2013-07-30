@@ -32,7 +32,8 @@ def session_property(key_name, factory=lambda instance: None):
     return property(_get_from_session, _set_to_session)
 
 def session_factory(key_name):
-    """ Use this to decorate a factory function for use with `request_variable`
+    """
+    Use this to decorate a factory function for use with `request_variable`
 
     e.g. turn:
         checkout_form = session_property('gifts.order.checkout_form',

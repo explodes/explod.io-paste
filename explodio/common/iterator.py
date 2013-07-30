@@ -1,28 +1,43 @@
 
 
-def left_outer_join(left_seq, right_seq, searcher=lambda left, right: bool(right), default=None):
-    return left_outer_join_factory(left_seq, right_seq, searcher=searcher,
-        default_factory=lambda left: default)
-
-def left_outer_join_factory(left_seq, right_seq, searcher=lambda left, right: bool(right), default_factory=lambda left:None):
-    """ Zip items in `left` with items in `right` matched by `func`. Right hand
-    side contains `default_factory(left)` if there is no real match.
+def pair_left(left_seq, right_seq, searcher=lambda left, right: bool(right), default=None):
+    """
+    Zip items in `left_seq` with items in `right_seq` matched by `searcher`.
+    Right hand side contains `default` if there is no real match.
     example:
         >>> left = 'abcd'
         >>> right = 'BDE'
         >>> searcher = lambda l, r: l.upper() == r.upper()
-        >>> result = left_outer_join(left, right, searcher, 'X')
+        >>> result = pair_left(left, right, searcher, 'X')
         >>> print result
         [('a', 'X'), ('b', 'B'), ('c', 'X'), ('d', 'D')]
+    :param left_seq: Left-hand-side sequence
+    :param right_seq: Right-hand-side sequence
+    :param searcher: bool func(left, right) indicating a match or not
+    :param default: default value when no match was found
+    :return: zip(left_seq, matching_right_seq)
+    """
+    return pair_left_factory(left_seq, right_seq, searcher=searcher,
+        default_factory=lambda left: default)
 
-
+def pair_left_factory(left_seq, right_seq, searcher=lambda left, right: bool(right), default_factory=lambda left:None):
+    """
+    Zip items in `left_seq` with items in `right_seq` matched by `searcher`.
+    Right hand side contains `default_factory(left)` if there is no real match.
+    example:
         >>> left = 'abcd'
         >>> right = 'BDE'
         >>> searcher = lambda l, r: l.upper() == r.upper()
         >>> factory = lambda l: l * 5
-        >>> result = left_outer_join_factory(left, right, searcher, factory)
+        >>> result = pair_left_factory(left, right, searcher, factory)
         >>> print result
         [('a', 'aaaaa'), ('b', 'B'), ('c', 'ccccc'), ('d', 'D')]
+    :param left_seq: Left-hand-side sequence
+    :param right_seq: Right-hand-side sequence
+    :param searcher: bool func(left, right) indicating a match or not
+    :param default_factory: object func(left) returning a default value when
+        no match was found
+    :return: zip(left_seq, matching_right_seq)
     """
     paired = []
     for left_item in left_seq:
@@ -37,6 +52,12 @@ def left_outer_join_factory(left_seq, right_seq, searcher=lambda left, right: bo
     return paired
 
 def no_duplicates(sequence, key=lambda x:x):
+    """
+    Iterate over a sequence, skipping duplicates as indicated by key
+    :param sequence: Sequence to iterate over
+    :param key: obj func(item) returning key to test duplicity for
+    :return: generator of sequence's objects
+    """
     history = set()
     for item in sequence:
         dup_key = key(item)
