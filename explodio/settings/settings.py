@@ -56,6 +56,7 @@ INSTALLED_APPS = (
 
     'explodio.main',
     'explodio.paste',
+    'explodio.xfit',
 )
 
 LOGGING = {

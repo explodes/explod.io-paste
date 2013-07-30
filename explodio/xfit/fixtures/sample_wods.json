@@ -1,0 +1,244 @@
+[
+{
+  "pk": 1, 
+  "model": "xfit.gym", 
+  "fields": {
+    "created_at": "2013-07-30T05:38:24.287Z", 
+    "modified_at": "2013-07-30T05:38:24.287Z", 
+    "slug": "crossfit-mt-olympus", 
+    "title": "Crossfit Mt. Olympus"
+  }
+},
+{
+  "pk": 2, 
+  "model": "xfit.gym", 
+  "fields": {
+    "created_at": "2013-07-30T05:40:30.470Z", 
+    "modified_at": "2013-07-30T05:40:30.470Z", 
+    "slug": "official-crossfit", 
+    "title": "Official Crossfit"
+  }
+},
+{
+  "pk": 1, 
+  "model": "xfit.workout", 
+  "fields": {
+    "time_limit": null, 
+    "is_hero": true, 
+    "title": "Eva", 
+    "modified_at": "2013-07-30T05:40:08.267Z", 
+    "created_at": "2013-07-30T05:40:08.267Z", 
+    "workout_type": 2, 
+    "slug": "eva"
+  }
+},
+{
+  "pk": 2, 
+  "model": "xfit.workout", 
+  "fields": {
+    "time_limit": null, 
+    "is_hero": false, 
+    "title": "130729", 
+    "modified_at": "2013-07-30T05:42:20.901Z", 
+    "created_at": "2013-07-30T05:42:20.901Z", 
+    "workout_type": 2, 
+    "slug": "130729"
+  }
+},
+{
+  "pk": 1, 
+  "model": "xfit.exercise", 
+  "fields": {
+    "created_at": "2013-07-30T05:39:18.010Z", 
+    "notes": "", 
+    "modified_at": "2013-07-30T05:39:18.010Z", 
+    "slug": "run", 
+    "title": "Run"
+  }
+},
+{
+  "pk": 2, 
+  "model": "xfit.exercise", 
+  "fields": {
+    "created_at": "2013-07-30T05:39:41.360Z", 
+    "notes": "", 
+    "modified_at": "2013-07-30T05:39:41.360Z", 
+    "slug": "kettle-bell-swing", 
+    "title": "Kettle Bell Swing"
+  }
+},
+{
+  "pk": 3, 
+  "model": "xfit.exercise", 
+  "fields": {
+    "created_at": "2013-07-30T05:39:47.819Z", 
+    "notes": "", 
+    "modified_at": "2013-07-30T05:39:47.819Z", 
+    "slug": "pull", 
+    "title": "Pull Up"
+  }
+},
+{
+  "pk": 4, 
+  "model": "xfit.exercise", 
+  "fields": {
+    "created_at": "2013-07-30T05:41:54.675Z", 
+    "notes": "", 
+    "modified_at": "2013-07-30T05:41:54.675Z", 
+    "slug": "muscle", 
+    "title": "Muscle Up"
+  }
+},
+{
+  "pk": 5, 
+  "model": "xfit.exercise", 
+  "fields": {
+    "created_at": "2013-07-30T05:42:00.871Z", 
+    "notes": "", 
+    "modified_at": "2013-07-30T05:42:00.871Z", 
+    "slug": "deficit-handstand-push", 
+    "title": "Deficit Handstand Push Up"
+  }
+},
+{
+  "pk": 6, 
+  "model": "xfit.exercise", 
+  "fields": {
+    "created_at": "2013-07-30T05:42:09.987Z", 
+    "notes": "", 
+    "modified_at": "2013-07-30T05:42:09.987Z", 
+    "slug": "overhead-walking-lunge", 
+    "title": "Overhead Walking Lunge"
+  }
+},
+{
+  "pk": 1, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-07-30T05:40:08.269Z", 
+    "item_group_repeats": 5, 
+    "effort_unit": "meter", 
+    "modified_at": "2013-07-30T05:40:08.269Z", 
+    "notes": "", 
+    "item_group": 1, 
+    "reps": 1, 
+    "order": 0, 
+    "reps_unit": "", 
+    "effort": 800, 
+    "workout": 1, 
+    "exercise": 1
+  }
+},
+{
+  "pk": 2, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-07-30T05:40:08.270Z", 
+    "item_group_repeats": 5, 
+    "effort_unit": "pound", 
+    "modified_at": "2013-07-30T05:40:08.270Z", 
+    "notes": "", 
+    "item_group": 1, 
+    "reps": 30, 
+    "order": 1, 
+    "reps_unit": "reps", 
+    "effort": 70, 
+    "workout": 1, 
+    "exercise": 2
+  }
+},
+{
+  "pk": 3, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-07-30T05:40:08.270Z", 
+    "item_group_repeats": 5, 
+    "effort_unit": "", 
+    "modified_at": "2013-07-30T05:40:08.270Z", 
+    "notes": "", 
+    "item_group": 1, 
+    "reps": 30, 
+    "order": 2, 
+    "reps_unit": "reps", 
+    "effort": 1, 
+    "workout": 1, 
+    "exercise": 3
+  }
+},
+{
+  "pk": 4, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-07-30T05:42:20.902Z", 
+    "item_group_repeats": 3, 
+    "effort_unit": "", 
+    "modified_at": "2013-07-30T05:42:20.902Z", 
+    "notes": "", 
+    "item_group": 1, 
+    "reps": 5, 
+    "order": 0, 
+    "reps_unit": "reps", 
+    "effort": 1, 
+    "workout": 2, 
+    "exercise": 4
+  }
+},
+{
+  "pk": 5, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-07-30T05:42:20.903Z", 
+    "item_group_repeats": 3, 
+    "effort_unit": "", 
+    "modified_at": "2013-07-30T05:42:20.903Z", 
+    "notes": "", 
+    "item_group": 1, 
+    "reps": 5, 
+    "order": 1, 
+    "reps_unit": "reps", 
+    "effort": 1, 
+    "workout": 2, 
+    "exercise": 5
+  }
+},
+{
+  "pk": 6, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-07-30T05:42:20.904Z", 
+    "item_group_repeats": 3, 
+    "effort_unit": "pound", 
+    "modified_at": "2013-07-30T05:42:20.904Z", 
+    "notes": "(with barbell)", 
+    "item_group": 1, 
+    "reps": 90, 
+    "order": 2, 
+    "reps_unit": "feet", 
+    "effort": 160, 
+    "workout": 2, 
+    "exercise": 6
+  }
+},
+{
+  "pk": 1, 
+  "model": "xfit.workoutoftheday", 
+  "fields": {
+    "created_at": "2013-07-30T05:40:20.323Z", 
+    "gym": 1, 
+    "modified_at": "2013-07-30T05:40:20.323Z", 
+    "workout": 1, 
+    "day": "2013-07-29"
+  }
+},
+{
+  "pk": 2, 
+  "model": "xfit.workoutoftheday", 
+  "fields": {
+    "created_at": "2013-07-30T05:42:26.450Z", 
+    "gym": 2, 
+    "modified_at": "2013-07-30T05:42:26.450Z", 
+    "workout": 2, 
+    "day": "2013-07-29"
+  }
+}
+]
