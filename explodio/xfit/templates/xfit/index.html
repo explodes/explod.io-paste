@@ -4,7 +4,7 @@
 <ul id="formlist">
   {% for wod_form in wod_forms %}
     <li class="wod">
-      <h3 class="wod-title">{{ wod_form.wod.gym }} - {{ wod_form.wod.workout.title }}</h3>
+      <h3 class="wod-title">{{ wod_form.wod.gym }}{% if wod_form %}&nbsp;-&nbsp;{{ wod_form.wod.workout.title }}{% endif %}</h3>
 
       {% if wod_form.wod.workout.exercises.exists %}
 
@@ -35,9 +35,13 @@
         {% endfor %}
       </ul>
 
+      {% else %}
+        <div class="no-exercise">There is no exercise planned today.</div>
       {% endif %}
 
     </li>
   {% endfor %}
 </ul>
 {% endblock content %}
+
+

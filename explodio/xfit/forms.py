@@ -1,4 +1,5 @@
-from itertools import izip
+import collections
+import itertools
 
 from django import forms
 
@@ -72,11 +73,12 @@ class UserWODForm(object):
             raise Exception('Unknown workout type')
 
     def create_wod_exercise_forms(self):
-        pairs = self.create_goal_progress_pairs_iter()
+        pairs = self.create_goal_wodexercise_pairs_iter()
+        repeated_pairs = self.create_repeated_pairs(pairs)
 
         wod_exercise_forms = []
 
-        for index, pair in enumerate(pairs):
+        for index, pair in enumerate(repeated_pairs):
             goal, wod_exercise = pair
             prefix = '%s-wode-%s' % (self.prefix, index)
             wod_exercise_form = WODExerciseForm(goal, self.data,
@@ -85,19 +87,35 @@ class UserWODForm(object):
 
         return wod_exercise_forms
 
-    def create_goal_progress_pairs_iter(self):
+    def create_goal_wodexercise_pairs_iter(self):
         if not self.user_wod:
-            goals = self.wod.workout.exercises.all()
+            goals = self.wod.workout.exercises.order_by('item_group', 'order')
             wod_exercises = [None] * len(goals)
-            pairs = izip(goals, wod_exercises)
+            pairs = itertools.izip(goals, wod_exercises)
         else:
-            goals = self.wod.workout.exercises.all()
+            goals = self.wod.workout.exercises.order_by('item_group', 'order')
             wod_exercises = self.user_wod.exercises.all()
             pairs = iterator.left_outer_join(goals, wod_exercises,
                 searcher=lambda goal, wod_exercise: \
                     wod_exercise.goal.id == goal.id)
             pairs = iter(pairs)
         return pairs
+
+    def create_repeated_pairs(self, goal_wodexercise_pairs):
+        group_items = collections.OrderedDict()
+
+        for goal, wod_exercise in goal_wodexercise_pairs:
+            group = goal.item_group
+            if group not in group_items:
+                group_items[group] = []
+            group_items[group].append((goal, wod_exercise))
+
+        for group, pairs in group_items.iteritems():
+            goal, wod_exercise = pairs[0]
+            repeat = goal.item_group_repeats
+            for x in xrange(repeat):
+                for pair in pairs:
+                    yield pair
 
     def is_valid(self):
         valid = self.score_form and self.score_form.is_valid()
