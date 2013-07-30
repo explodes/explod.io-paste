@@ -4,6 +4,22 @@ from django.db import models
 from explodio.xfit import managers
 
 
+class Unit(models.Model):
+
+    title = models.CharField(max_length=50)
+    plural = models.CharField(max_length=50)
+
+    modified_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'unit'
+        verbose_name_plural = 'units'
+        ordering = ('title',)
+
+    def __unicode__(self):
+        return self.title
+
 class Gym(models.Model):
 
     title = models.CharField(max_length=50, help_text='Title of this gym')
@@ -102,18 +118,19 @@ class WorkoutExercise(models.Model):
 
     effort = models.PositiveSmallIntegerField(default=100,
         help_text='Effort required, generally a weight or distance')
-    effort_unit = models.CharField(max_length=50, default='pound', blank=True,
-        null=True, help_text='Unit of effort, either empty if it does not '
-        'apply, like for push-ups, or something like, "pounds" for weights '
-        'or weighted runs')
+    effort_unit = models.ForeignKey(Unit, default=1, blank=True, null=True,
+        help_text='Unit of effort, either empty if it does not apply, like for '
+        'push-ups, or something like, "pounds" for weights or weighted runs',
+        related_name='+')
+
 
     exercise = models.ForeignKey(Exercise, help_text='The exerted movement')
 
     reps = models.PositiveSmallIntegerField(default=1, 
         help_text='How many times the movement is repeated, or for how far')
-    reps_unit = models.CharField(max_length=50, default='reps', blank=True,
-        null=True, help_text='Unit of repetition, usually "reps" or "feet" '
-        'for weighted runs')
+    reps_unit = models.ForeignKey(Unit, default=2, blank=True, null=True,
+        help_text='Unit of repetition, usually "reps" or "feet" for weighted '
+        'runs', related_name='+')
 
     notes = models.CharField(max_length=50, blank=True, 
         help_text='Optional special instructions')
@@ -191,6 +208,8 @@ class UserWOD(models.Model):
         help_text='WOD that was performed')
     time = models.TimeField(null=True, blank=True, 
         help_text='Duration of this WOD')
+    rounds = models.PositiveSmallIntegerField(null=True, blank=True,
+        help_text='Number of rounds performed')
 
     modified_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -209,7 +228,7 @@ class WODExercise(models.Model):
 
     goal = models.ForeignKey(WorkoutExercise, null=True, blank=True,
         help_text='Target accomplishment, empty if this is extra curricular')
-    user_wod = models.ForeignKey(UserWOD, related_name='exercises',
+    user_wod = models.ForeignKey(UserWOD, related_name='wod_exercises',
         help_text='WOD to which this exercise was a part of')
 
     effort = models.PositiveSmallIntegerField(default=100,

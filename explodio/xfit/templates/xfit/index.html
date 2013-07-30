@@ -1,5 +1,43 @@
 {% extends "xfit/base.html" %}
 
 {% block content %}
-{{ block.super }}
+<ul id="formlist">
+  {% for wod_form in wod_forms %}
+    <li class="wod">
+      <h3 class="wod-title">{{ wod_form.wod.gym }} - {{ wod_form.wod.workout.title }}</h3>
+
+      {% if wod_form.wod.workout.exercises.exists %}
+
+      <div class="wod-score">{{ wod_form.score_form.as_p }}</div>
+
+      <ul class="wod-exercises">
+        {% for wod_exercise_form in wod_form.wod_exercise_forms %}
+          <li class="wod-exercise">
+            <div class="wod-goal">{{ wod_exercise_form.goal }}</div>
+            {% if wod_exercise_form.non_field_errors %}
+              <div class="wod-errors">{{ wod_exercise_form.non_field_errors }}</div>
+            {% endif %}
+            {% if wod_exercise_form.fields.effort %}
+              <div class="wod-field">
+                {{ wod_exercise_form.effort.errors }}
+                <label>{{ wod_exercise_form.goal.effort_unit|capfirst }}:</label>
+                {{ wod_exercise_form.effort }}
+              </div>
+            {% endif %}
+            {% if wod_exercise_form.fields.reps %}
+              <div class="wod-field">
+                {{ wod_exercise_form.effort.reps }}
+                <label>{{ wod_exercise_form.goal.reps_unit|capfirst }}:</label>
+                {{ wod_exercise_form.reps }}
+              </div>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+
+      {% endif %}
+
+    </li>
+  {% endfor %}
+</ul>
 {% endblock content %}

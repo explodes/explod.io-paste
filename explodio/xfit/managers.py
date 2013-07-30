@@ -28,7 +28,7 @@ class UserWODManager(managers.QuerySetManager):
     class QuerySet(managers.QuerySet):
 
         def by_day(self, day):
-            return self.filter(day=day)
+            return self.filter(wod__day=day)
 
         def by_user(self, user):
             return self.filter(user=user)

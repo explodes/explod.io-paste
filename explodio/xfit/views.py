@@ -1,7 +1,8 @@
 from datetime import date
 from django.views.generic import TemplateView
 
-from explodio.common import iter
+from explodio.common import iterator
+from explodio.xfit import forms
 from explodio.xfit import models
 
 
@@ -28,13 +29,25 @@ class XFitView(TemplateView):
     def get_wod_pairs(self, user=None, day=None):
         wods = self.get_wods(day)
         user_wods = self.get_user_wods(user, day)
-        pairs = iter.left_outer_join(wods, user_wods,
+        pairs = iterator.left_outer_join(wods, user_wods,
             searcher=lambda wod, uw: uw.wod.id == wod.id)
         return pairs
 
+    def get_wod_forms(self, data, user=None, day=None):
+        if user is None and self.request.user.is_authenticated():
+            user = self.request.user
+        wod_pairs = self.get_wod_pairs(user=user, day=day)
 
+        wod_forms = []
 
-class XFitContextView(TemplateView):
+        for index, pair in enumerate(wod_pairs):
+            wod, user_wod = pair
+            wod_form = forms.UserWODForm(user, wod, user_wod, index, data)
+            wod_forms.append(wod_form)
+
+        return wod_forms
+
+class XFitContextView(XFitView):
 
     def get_context_data(self, **kwargs):
         ctx = super(XFitContextView, self).get_context_data(**kwargs)
@@ -51,7 +64,7 @@ class IndexView(XFitContextView):
     def get_context_data(self, **kwargs):
         ctx = super(IndexView, self).get_context_data(**kwargs)
         additional = {
-            'wods' : self.get_wod_pairs(),
+            'wod_forms' : self.get_wod_forms(self.request.POST or None),
         }
         ctx.update(additional)
         return ctx

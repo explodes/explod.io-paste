@@ -3,6 +3,13 @@ from django.contrib import admin
 from explodio.xfit import models
 
 
+class UnitAdmin(admin.ModelAdmin):
+    list_display = ('title', 'plural')
+    date_hierarchy = 'created_at'
+    search_fields = ('title', 'plural')
+
+    readonly_fields = ('modified_at', 'created_at',)
+
 class GymAdmin(admin.ModelAdmin):
     list_display = ('title', 'active', 'order')
     prepopulated_fields = {'slug': ('title',)}
@@ -70,6 +77,7 @@ class UserWODAdmin(admin.ModelAdmin):
     inlines = [WODExerciseInline]
     readonly_fields = ('modified_at', 'created_at',)
 
+admin.site.register(models.Unit, UnitAdmin)
 admin.site.register(models.Gym, GymAdmin)
 admin.site.register(models.Workout, WorkoutAdmin)
 admin.site.register(models.Exercise, ExerciseAdmin)

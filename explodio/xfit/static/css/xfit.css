@@ -1,0 +1,43 @@
+
+
+
+#formlist {
+    list-style:none;
+    margin-left:0;
+}
+
+.wod {}
+
+.wod-title {
+    font-size:22px;
+
+}
+
+.wod-score {}
+
+.wod-exercises {
+    list-style:none;
+    margin-left:0;
+}
+
+.wod-exercise {
+    margin-bottom:10px;
+}
+
+.wod-goal {
+    width: 250px;
+    font-size:16px;
+    font-weight:600;
+}
+
+.wod-errors {}
+
+.wod-field {
+}
+
+.wod-field label {
+}
+
+.wod-field input {
+    width:50px;
+}

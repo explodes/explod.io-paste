@@ -8,6 +8,16 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
+        # Adding model 'Unit'
+        db.create_table(u'xfit_unit', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('title', self.gf('django.db.models.fields.CharField')(max_length=50)),
+            ('plural', self.gf('django.db.models.fields.CharField')(max_length=50)),
+            ('modified_at', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
+            ('created_at', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
+        ))
+        db.send_create_signal(u'xfit', ['Unit'])
+
         # Adding model 'Gym'
         db.create_table(u'xfit_gym', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
@@ -52,10 +62,10 @@ class Migration(SchemaMigration):
             ('item_group', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=1)),
             ('item_group_repeats', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=1)),
             ('effort', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=100)),
-            ('effort_unit', self.gf('django.db.models.fields.CharField')(default='pound', max_length=50, null=True, blank=True)),
+            ('effort_unit', self.gf('django.db.models.fields.related.ForeignKey')(default=1, related_name='+', null=True, blank=True, to=orm['xfit.Unit'])),
             ('exercise', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['xfit.Exercise'])),
             ('reps', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=1)),
-            ('reps_unit', self.gf('django.db.models.fields.CharField')(default='reps', max_length=50, null=True, blank=True)),
+            ('reps_unit', self.gf('django.db.models.fields.related.ForeignKey')(default=2, related_name='+', null=True, blank=True, to=orm['xfit.Unit'])),
             ('notes', self.gf('django.db.models.fields.CharField')(max_length=50, blank=True)),
             ('order', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=0)),
             ('modified_at', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
@@ -83,6 +93,7 @@ class Migration(SchemaMigration):
             ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
             ('wod', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['xfit.WorkoutOfTheDay'])),
             ('time', self.gf('django.db.models.fields.TimeField')(null=True, blank=True)),
+            ('rounds', self.gf('django.db.models.fields.PositiveSmallIntegerField')(null=True, blank=True)),
             ('modified_at', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
             ('created_at', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
         ))
@@ -92,7 +103,7 @@ class Migration(SchemaMigration):
         db.create_table(u'xfit_wodexercise', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('goal', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['xfit.WorkoutExercise'], null=True, blank=True)),
-            ('user_wod', self.gf('django.db.models.fields.related.ForeignKey')(related_name='exercises', to=orm['xfit.UserWOD'])),
+            ('user_wod', self.gf('django.db.models.fields.related.ForeignKey')(related_name='wod_exercises', to=orm['xfit.UserWOD'])),
             ('effort', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=100)),
             ('reps', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=1)),
             ('notes', self.gf('django.db.models.fields.CharField')(max_length=50, blank=True)),
@@ -105,6 +116,9 @@ class Migration(SchemaMigration):
     def backwards(self, orm):
         # Removing unique constraint on 'WorkoutOfTheDay', fields ['gym', 'workout']
         db.delete_unique(u'xfit_workoutoftheday', ['gym_id', 'workout_id'])
+
+        # Deleting model 'Unit'
+        db.delete_table(u'xfit_unit')
 
         # Deleting model 'Gym'
         db.delete_table(u'xfit_gym')
@@ -184,11 +198,20 @@ class Migration(SchemaMigration):
             'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '50'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '50'})
         },
-        u'xfit.userwod': {
-            'Meta': {'ordering': "('wod', 'user')", 'object_name': 'UserWOD'},
+        u'xfit.unit': {
+            'Meta': {'ordering': "('title',)", 'object_name': 'Unit'},
             'created_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'modified_at': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
+            'plural': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '50'})
+        },
+        u'xfit.userwod': {
+            'Meta': {'ordering': "('-wod__day', 'user')", 'object_name': 'UserWOD'},
+            'created_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'modified_at': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
+            'rounds': ('django.db.models.fields.PositiveSmallIntegerField', [], {'null': 'True', 'blank': 'True'}),
             'time': ('django.db.models.fields.TimeField', [], {'null': 'True', 'blank': 'True'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"}),
             'wod': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['xfit.WorkoutOfTheDay']"})
@@ -202,7 +225,7 @@ class Migration(SchemaMigration):
             'modified_at': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
             'notes': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
             'reps': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '1'}),
-            'user_wod': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'exercises'", 'to': u"orm['xfit.UserWOD']"})
+            'user_wod': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'wod_exercises'", 'to': u"orm['xfit.UserWOD']"})
         },
         u'xfit.workout': {
             'Meta': {'ordering': "('title',)", 'object_name': 'Workout'},
@@ -220,7 +243,7 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "('workout', 'item_group', 'order')", 'object_name': 'WorkoutExercise'},
             'created_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'effort': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '100'}),
-            'effort_unit': ('django.db.models.fields.CharField', [], {'default': "'pound'", 'max_length': '50', 'null': 'True', 'blank': 'True'}),
+            'effort_unit': ('django.db.models.fields.related.ForeignKey', [], {'default': '1', 'related_name': "'+'", 'null': 'True', 'blank': 'True', 'to': u"orm['xfit.Unit']"}),
             'exercise': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['xfit.Exercise']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'item_group': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '1'}),
@@ -229,11 +252,11 @@ class Migration(SchemaMigration):
             'notes': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
             'order': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
             'reps': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '1'}),
-            'reps_unit': ('django.db.models.fields.CharField', [], {'default': "'reps'", 'max_length': '50', 'null': 'True', 'blank': 'True'}),
+            'reps_unit': ('django.db.models.fields.related.ForeignKey', [], {'default': '2', 'related_name': "'+'", 'null': 'True', 'blank': 'True', 'to': u"orm['xfit.Unit']"}),
             'workout': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'exercises'", 'to': u"orm['xfit.Workout']"})
         },
         u'xfit.workoutoftheday': {
-            'Meta': {'ordering': "('day',)", 'unique_together': "(('gym', 'workout'),)", 'object_name': 'WorkoutOfTheDay'},
+            'Meta': {'ordering': "('-day',)", 'unique_together': "(('gym', 'workout'),)", 'object_name': 'WorkoutOfTheDay'},
             'created_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'day': ('django.db.models.fields.DateField', [], {}),
             'gym': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'wods'", 'to': u"orm['xfit.Gym']"}),
