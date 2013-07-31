@@ -56,7 +56,6 @@ def pair_left_factory(left_seq, right_seq, searcher=lambda left, right: bool(rig
         if not found:
             paired.append((left_item, default_factory(left_item)))
         elif match_once:
-            print 'match_once', right_item
             right_seq.remove(right_item)
     return paired
 

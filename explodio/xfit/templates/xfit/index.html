@@ -10,13 +10,15 @@
 
   <form method="post" action="">
     <ul id="formlist">
+      <li class="submit-container"></li>
       {% for wod_form in wod_forms %}
         <li class="wod">
-          <h3 class="wod-title">{{ wod_form.wod.gym }}&nbsp;-&nbsp;{{ wod_form.wod.workout.title }}</h3>
+          <h3 class="wod-gym">{{ wod_form.wod.gym }}</h3>
+          <h4 class="wod-title">{{ wod_form.wod.workout.title }}</h4>
 
           {% if wod_form.wod.workout.exercises.exists %}
 
-          <div class="wod-score">{{ wod_form.score_form.as_p }}</div>
+          <div class="wod-score wod-field">{{ wod_form.score_form.as_p }}</div>
 
           <ul class="wod-exercises">
             {% for wod_exercise_form in wod_form.wod_exercise_forms %}
@@ -46,21 +48,23 @@
                 </div>
               </li>
             {% endfor %}
+            <button class="submit-wod" type="submit" name="action" value="update-wods">Save</button>
           </ul>
 
           {% else %}
-            <div class="no-exercise">There is no exercise planned today.</div>
+            <div class="no-exercise">There are no exercises for this routine.</div>
           {% endif %}
 
         </li>
       {% endfor %}
 
       {% for gym in extra_gyms %}
+      <li class="wod">
         <h3 class="wod-title">{{ gym }}</h3>
-        <div class="no-exercise">There is no exercise planned today.</div>
+        <div class="no-exercise">Either nothing is planned today, or someone is busy lifting hundred pound rocks.</div>
+      </li>
       {% endfor %}
     </ul>
     {% csrf_token %}
-    <button type="submit" name="action" value="update-wods">Save WODs</button>
   </form>
 {% endblock content %}
