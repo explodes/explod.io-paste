@@ -67,7 +67,7 @@
   "fields": {
     "title": "Crossfit Mt. Olympus", 
     "created_at": "2013-07-30T05:40:30.470Z", 
-    "modified_at": "2013-07-30T16:38:08.040Z", 
+    "modified_at": "2013-07-31T18:54:00.524Z", 
     "slug": "crossfit-mt-olympus", 
     "active": true, 
     "order": 100
@@ -141,6 +141,20 @@
     "workout_type": 3, 
     "created_at": "2013-07-31T15:41:31.924Z", 
     "slug": "120501"
+  }
+},
+{
+  "pk": 6, 
+  "model": "xfit.workout", 
+  "fields": {
+    "time_limit": null, 
+    "is_hero": false, 
+    "title": "Power WOD 130731", 
+    "modified_at": "2013-07-31T20:36:18.289Z", 
+    "notes": "", 
+    "workout_type": 3, 
+    "created_at": "2013-07-31T20:36:18.289Z", 
+    "slug": "power-wod-130731"
   }
 },
 {
@@ -273,6 +287,17 @@
     "modified_at": "2013-07-31T15:41:16.929Z", 
     "slug": "shoulder-press", 
     "title": "Shoulder Press"
+  }
+},
+{
+  "pk": 13, 
+  "model": "xfit.exercise", 
+  "fields": {
+    "created_at": "2013-07-31T20:36:04.700Z", 
+    "notes": "", 
+    "modified_at": "2013-07-31T20:36:04.700Z", 
+    "slug": "front-squat", 
+    "title": "Front Squat"
   }
 },
 {
@@ -528,6 +553,24 @@
   }
 },
 {
+  "pk": 15, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-07-31T20:36:18.290Z", 
+    "effort_unit": null, 
+    "modified_at": "2013-07-31T20:36:18.290Z", 
+    "workout": 6, 
+    "item_group": 1, 
+    "reps": 3, 
+    "order": 0, 
+    "reps_unit": 2, 
+    "notes": "heavy, heavy, heavy!", 
+    "effort": 1, 
+    "item_group_repeats": 3, 
+    "exercise": 13
+  }
+},
+{
   "pk": 1, 
   "model": "xfit.workoutoftheday", 
   "fields": {
@@ -580,6 +623,17 @@
     "modified_at": "2013-07-31T15:41:41.508Z", 
     "workout": 5, 
     "day": "2013-07-31"
+  }
+},
+{
+  "pk": 6, 
+  "model": "xfit.workoutoftheday", 
+  "fields": {
+    "created_at": "2013-07-31T20:38:30.831Z", 
+    "gym": 2, 
+    "modified_at": "2013-07-31T20:38:30.831Z", 
+    "workout": 6, 
+    "day": "2013-07-30"
   }
 }
 ]
