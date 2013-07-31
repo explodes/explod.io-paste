@@ -48,10 +48,12 @@ class Workout(models.Model):
 
     WORKOUT_TYPE_AMRAP = 1
     WORKOUT_TYPE_TIMED = 2
+    WORKOUT_TYPE_POWER = 3
 
     WORKOUT_TYPES = (
         (WORKOUT_TYPE_AMRAP, 'AMRAP'),
         (WORKOUT_TYPE_TIMED, 'Timed'),
+        (WORKOUT_TYPE_POWER, 'Power'),
     )
 
     title = models.CharField(max_length=50, help_text='Title of this workout')

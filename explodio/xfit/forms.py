@@ -8,13 +8,19 @@ from explodio.common.forms import FormHelpersMixin
 from explodio.xfit import models
 
 
-class TimeForm(forms.Form):
+class ScoreForm(forms.Form):
+    """
+    Base form for keeping score of a Workout
+    """
+    pass
+
+class TimeForm(ScoreForm):
     """
     Score Form for Time
     """
     time = forms.TimeField(required=False)
 
-class RoundsForm(forms.Form):
+class RoundsForm(ScoreForm):
     """
     Score Form for Rounds
     """
@@ -113,10 +119,10 @@ class UserWODForm(object):
             else:
                 initial = None
             return RoundsForm(self.data, prefix=self.prefix, initial=initial)
+        elif self.workout_type == models.Workout.WORKOUT_TYPE_POWER:
+            pass
         else:
             raise Exception('Unknown workout type')
-
-
 
     def create_wod_exercise_forms(self):
         """
@@ -125,11 +131,10 @@ class UserWODForm(object):
         :return: list of WODExerciseForms
         """
         pairs = self.create_goal_wodexercise_pairs_iter()
-        repeated_pairs = self.create_repeated_pairs(pairs)
 
         wod_exercise_forms = []
 
-        for index, pair in enumerate(repeated_pairs):
+        for index, pair in enumerate(pairs):
             goal, wod_exercise = pair
             prefix = '%sex%s' % (self.prefix, index)
             wod_exercise_form = WODExerciseForm(goal, self.data,
@@ -144,47 +149,65 @@ class UserWODForm(object):
         current UserWOD's WODExercises by goal (WorkoutExercise)
         If there is no current user_wod, pairs WorkoutExercises with None.
         :return: list of (WorkoutExercise, WODExercise)
+            or (WorkoutExercise, None)
         """
+        goals = self.get_repeated_exercises(self.wod.workout)
+
         if not self.user_wod:
-            # If we don't have a UserWOD, join WorkoutExercises with None
-            goals = self.wod.workout.exercises.order_by('item_group', 'order')
+            # If there is no UserWOD, build (WorkoutExercise, None) tuples
             wod_exercises = [None] * len(goals)
             pairs = itertools.izip(goals, wod_exercises)
         else:
-            # If we do have a UserWOD, join WorkoutExercises with their
-            # respective WODExercises
-            goals = self.wod.workout.exercises.order_by('item_group', 'order')
-            wod_exercises = self.user_wod.wod_exercises.all()
-            pairs = iterator.pair_left(goals, wod_exercises,
+            # If there is a UserWOD, build (WorkoutExercise, WODExercise) tuples
+            wod_exercises = self.user_wod.wod_exercises \
+                .order_by('goal__item_group', 'goal__order', 'pk')
+            pairs = iterator.pair_left(goals, wod_exercises, match_once=True,
                 searcher=lambda goal, wod_exercise: \
                     wod_exercise.goal.id == goal.id)
             pairs = iter(pairs)
         return pairs
 
-    def create_repeated_pairs(self, goal_wodexercise_pairs):
+    def get_repeated_exercises(self, workout):
         """
-        Repeats (WorkoutExercise, WODExercise) as necessary based on the
-        WorkoutExercise's item_group and item_group_repeats.
-        :param goal_wodexercise_pairs: list of (WorkoutExercise, WODExercise) to
-            repeat from
-        :return: generator of (WorkoutExercise, WODExercise)
+        For each WorkoutExercise group in a Workout, yield that group repeated
+        as necessary.
+
+        For example, if the WorkoutExercise set looks like:
+        - Exercise 1: Group A repeat 2x
+        - Exercise 2: Group A repeat 2x
+        - Exercise 3: Group B repeat 1x
+        - Exercise 4: Group C repeat 2x
+        - Exercise 5: Group C repeat 2x
+
+        The resulting list is:
+        > A1, A2, A1,A 2, B3, C4, C5, C4, C5
+        :return: list of WorkoutExercise
+        """
+        exercises = workout.exercises.order_by('item_group', 'order')
+        return list(self.repeat_exercises_iter(exercises))
+
+    def repeat_exercises_iter(self, exercises):
+        """
+        Repeat exercises by `item_group,` `item_group_repeats` times
+        :param goals: list of WorkoutExercise
+        :return: longer list of WorkoutExercise
         """
         group_items = collections.OrderedDict()
 
         # In order, add exercises to their respective group
-        for goal, wod_exercise in goal_wodexercise_pairs:
-            group = goal.item_group
+        for exercise in exercises:
+            group = exercise.item_group
             if group not in group_items:
                 group_items[group] = []
-            group_items[group].append((goal, wod_exercise))
+            group_items[group].append(exercise)
 
         # For each group, yield the items in the groups `n` times
-        for group, pairs in group_items.iteritems():
-            goal, wod_exercise = pairs[0]
-            repeat = goal.item_group_repeats
+        for group, exercises in group_items.iteritems():
+            exercise = exercises[0] # Use the first exercise as
+            repeat = exercise.item_group_repeats
             for x in xrange(repeat):
-                for pair in pairs:
-                    yield pair
+                for exercise in exercises:
+                    yield exercise
 
     def is_valid(self):
         """
@@ -216,6 +239,11 @@ class UserWODForm(object):
         elif self.workout_type == models.Workout.WORKOUT_TYPE_AMRAP:
             user_wod.time = None
             user_wod.rounds = self.score_form.cleaned_data['rounds']
+        elif self.workout_type == models.Workout.WORKOUT_TYPE_POWER:
+            user_wod.time = None
+            user_wod.rounds = None
+        else:
+            raise Exception('Unknown workout type')
 
         # Create a list of WODExercises to save (or not)
         wod_exercises = []
