@@ -214,7 +214,7 @@ class UserWODForm(object):
         Validate each of the child forms this object has
         :return: Whether or not every child form validated
         """
-        valid = self.score_form and self.score_form.is_valid()
+        valid = not self.score_form or self.score_form.is_valid()
         for wod_exercise_form in self.wod_exercise_forms:
             valid &= wod_exercise_form.is_valid()
         return valid
