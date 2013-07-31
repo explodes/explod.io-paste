@@ -47,7 +47,7 @@ class LoginView(TemplateView):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    messages.info(request, 'You are successfully logged in')
+                    messages.info(request, 'Logged in')
                     next = request.GET.get('next', None)
                     if not next:
                         next = reverse('accounts:login')
@@ -62,6 +62,7 @@ class LogoutView(View):
 
     def get(self, request, *args, **kwargs):
         logout(request)
+        messages.info(request, 'Logged out')
         next = request.GET.get('next', request.POST.get('next', None))
         if not next:
             next = reverse('accounts:login')

@@ -6,4 +6,5 @@
     <button type="submit">Login</button>
     {% csrf_token %}
 </form>
+{% if request.user.is_authenticated %}<div id="logged-in">Do you know where you need to go?</div>{% endif %}
 {% endblock %}

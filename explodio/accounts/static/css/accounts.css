@@ -1,18 +1,18 @@
 body {
-    color:#444;
+    color:#083d3d;
     font-size:32px;
     font-family:HelveticaNeue-Light,helvetica,arial,sans-serif;
 }
 #content {
-    padding:112px;
+    padding:26px;
+    margin-top:24px;
 }
 #login-form {
-    margin-top:24px;
     background-color:#aaa;
     border-radius:10px;
     border:1px solid black;
     width:400px;
-    margin:0 auto;
+    margin:10px auto;
     text-align:center;
     padding:20px;
 }
@@ -21,6 +21,7 @@ body {
 }
 #login-form input {
     background-color:#ddd;
+    text-align:center;
     font-family:HelveticaNeue-Light,helvetica,arial,sans-serif;
 }
 #login-form button {
@@ -29,8 +30,16 @@ body {
     font-family:HelveticaNeue-Light,helvetica,arial,sans-serif;
 }
 #messages{
-    margin:0 auto;
+    margin:12px auto;
     width:760px;
     text-align:center;
     list-style:none;
+    font-size:22px;
+}
+#logged-in{
+    margin:22px auto;
+    width:760px;
+    text-align:center;
+    list-style:none;
+    font-size:22px;
 }
