@@ -202,6 +202,15 @@ class WorkoutOfTheDay(models.Model):
     def __unicode__(self):
         return self.detailed_name()
 
+    @models.permalink
+    def get_absolute_url(self):
+        day = self.day
+        return 'xfit:index', (), {
+            'year': day.year,
+            'month': day.month,
+            'day': day.day,
+        }
+
 class UserWOD(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, 
@@ -225,6 +234,15 @@ class UserWOD(models.Model):
 
     def __unicode__(self):
         return u'"%s" for "%s"' % (self.wod, self.user.username)
+
+    @models.permalink
+    def get_absolute_url(self):
+        day = self.wod.day
+        return 'xfit:index', (), {
+            'year': day.year,
+            'month': day.month,
+            'day': day.day,
+        }
 
 class WODExercise(models.Model):
 

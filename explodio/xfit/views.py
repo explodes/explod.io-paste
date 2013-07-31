@@ -129,7 +129,7 @@ class IndexView(XFitContextView):
         result = None
         if year and month and day:
             try:
-                result = date(int(year), int(month), int(day))
+                result = date(int(year, 10), int(month, 10), int(day, 10))
             except: # Invalid input
                 pass
         if not result:
