@@ -98,7 +98,7 @@ a,a:active,a:visited{
 .wod-field {
     font-size:12px;
     display:inline-block;
-    width:55px;
+    width:105px;
 }
 
 .wod-field label {
@@ -109,7 +109,7 @@ a,a:active,a:visited{
 }
 
 .wod-field input {
-    width:50px;
+    width:100px;
 }
 .wod-field .notes input {
     width:250px;
