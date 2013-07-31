@@ -266,7 +266,6 @@ class WODExercise(models.Model):
     class Meta:
         verbose_name = 'user WOD exercise'
         verbose_name_plural = 'user WOD exercises'
-        ordering = ('goal__workout', 'goal__item_group', 'goal__order',)
 
     def detailed_name(self):
 
