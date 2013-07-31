@@ -1,6 +1,6 @@
 
 
-def pair_left(left_seq, right_seq, searcher=lambda left, right: bool(right), default=None):
+def pair_left(left_seq, right_seq, searcher=lambda left, right: bool(right), default=None, match_once=False):
     """
     Zip items in `left_seq` with items in `right_seq` matched by `searcher`.
     Right hand side contains `default` if there is no real match.
@@ -15,12 +15,14 @@ def pair_left(left_seq, right_seq, searcher=lambda left, right: bool(right), def
     :param right_seq: Right-hand-side sequence
     :param searcher: bool func(left, right) indicating a match or not
     :param default: default value when no match was found
+    :param match_once: match right-item with up to one left-item
     :return: zip(left_seq, matching_right_seq)
+    :rtype : list
     """
     return pair_left_factory(left_seq, right_seq, searcher=searcher,
-        default_factory=lambda left: default)
+        default_factory=lambda left: default, match_once=match_once)
 
-def pair_left_factory(left_seq, right_seq, searcher=lambda left, right: bool(right), default_factory=lambda left:None):
+def pair_left_factory(left_seq, right_seq, searcher=lambda left, right: bool(right), default_factory=lambda left:None, match_once=False):
     """
     Zip items in `left_seq` with items in `right_seq` matched by `searcher`.
     Right hand side contains `default_factory(left)` if there is no real match.
@@ -37,8 +39,12 @@ def pair_left_factory(left_seq, right_seq, searcher=lambda left, right: bool(rig
     :param searcher: bool func(left, right) indicating a match or not
     :param default_factory: object func(left) returning a default value when
         no match was found
+    :param match_once: match right-item with up to one left-item
     :return: zip(left_seq, matching_right_seq)
+    :rtype : list
     """
+    if match_once:
+        right_seq = list(right_seq)
     paired = []
     for left_item in left_seq:
         found = False
@@ -49,6 +55,9 @@ def pair_left_factory(left_seq, right_seq, searcher=lambda left, right: bool(rig
                 break
         if not found:
             paired.append((left_item, default_factory(left_item)))
+        elif match_once:
+            print 'match_once', right_item
+            right_seq.remove(right_item)
     return paired
 
 def no_duplicates(sequence, key=lambda x:x):
