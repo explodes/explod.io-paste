@@ -207,6 +207,7 @@ class IndexView(XFitContextView):
             messages.info(request, 'Workouts saved')
         else:
             messages.error(request, 'Form error')
+            return self.render_to_response(ctx)
 
         return http.HttpResponseRedirect(reverse(
             'xfit:index',
