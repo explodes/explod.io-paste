@@ -26,6 +26,7 @@ d888 '88%"     8888        888I  888I   888R    888R I888>  888E  888E          
   {% endcompress %}
 </head>
   <body>
+    {% block header %}{% endblock %}
     {% block messages %}{% if messages %}
     <ul id="messages">
       {% for message in messages %}

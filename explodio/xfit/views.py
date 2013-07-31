@@ -2,6 +2,7 @@ from datetime import date, timedelta
 
 from django import http
 from django.contrib import messages
+from django.core.urlresolvers import reverse
 from django.views.generic import TemplateView
 
 from explodio.common import iterator
@@ -35,7 +36,7 @@ class XFitView(TemplateView):
         """
         if day is None:
             day = date.today()
-        q = models.WorkoutOfTheDay.objects.for_day(day)
+        q = models.WorkoutOfTheDay.objects.for_day(day).active()
         return q
 
     def get_user_wods(self, user=None, day=None):
@@ -194,6 +195,7 @@ class IndexView(XFitContextView):
         :return: HttpResponse
         """
         ctx = self.get_context_data(**kwargs)
+        day = ctx['day']
 
         wod_forms = ctx['wod_forms']
 
@@ -202,10 +204,17 @@ class IndexView(XFitContextView):
         if valid:
             for wod_form in wod_forms:
                 wod_form.save()
-            ctx = self.get_context_data(**kwargs) # Get fresh data
             messages.info(request, 'Workouts saved')
         else:
             messages.error(request, 'Form error')
 
-        return self.render_to_response(ctx)
+        return http.HttpResponseRedirect(reverse(
+            'xfit:index',
+            args=(),
+            kwargs={
+                'year': day.year,
+                'month': day.month,
+                'day': day.day
+            }
+        ))
 

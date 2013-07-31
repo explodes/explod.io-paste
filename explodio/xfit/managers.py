@@ -41,6 +41,20 @@ class WorkoutOfTheDayManager(managers.QuerySetManager):
 
     class QuerySet(managers.QuerySet):
 
+        def active(self):
+            """
+            Filter by WorkoutOfTheDays with active Gyms
+            :return: QuerySet of UserWOD
+            """
+            return self.filter(gym__active=True)
+
+        def inactive(self):
+            """
+            Filter by WorkoutOfTheDays with inactive Gyms
+            :return: QuerySet of UserWOD
+            """
+            return self.filter(gym__active=False)
+
         def for_day(self, day):
             """
             Filter for a specific day
@@ -49,18 +63,26 @@ class WorkoutOfTheDayManager(managers.QuerySetManager):
             """
             return self.filter(day=day)
 
-class WODExerciseManager(managers.QuerySetManager):
-    """
-    Custom manger for WODExercises
-    """
-    pass
-
 class UserWODManager(managers.QuerySetManager):
     """
     Custom manger for UserWODs
     """
 
     class QuerySet(managers.QuerySet):
+
+        def active(self):
+            """
+            Filter by UserWODs with WODs with active Gyms
+            :return: QuerySet of UserWOD
+            """
+            return self.filter(wod__gym__active=True)
+
+        def inactive(self):
+            """
+            Filter by UserWODs with WODs with inactive Gyms
+            :return: QuerySet of UserWOD
+            """
+            return self.filter(wod__gym__active=False)
 
         def for_day(self, day):
             """
@@ -77,3 +99,24 @@ class UserWODManager(managers.QuerySetManager):
             :return: QuerySet of UserWOD
             """
             return self.filter(user=user)
+
+class WODExerciseManager(managers.QuerySetManager):
+    """
+    Custom manger for WODExercises
+    """
+
+    class QuerySet(managers.QuerySet):
+
+        def active(self):
+            """
+            Filter by WODExercises with WODs with active Gyms
+            :return: QuerySet of UserWOD
+            """
+            return self.filter(user_wod__wod__gym__active=True)
+
+        def inactive(self):
+            """
+            Filter by WODExercises with WODs with inactive Gyms
+            :return: QuerySet of UserWOD
+            """
+            return self.filter(user_wod__wod__gym__active=False)

@@ -1,12 +1,14 @@
 {% extends "xfit/base.html" %}
 
-{% block content %}
-
+{% block header %}
   <ul id="day-nav">
-      <li id="day-prev"><a href="{% url 'xfit:index' year=yesterday.year month=yesterday.month day=yesterday.day %}">{{ yesterday }}</a></li>
-      <li id="day-now"><a href="{% url 'xfit:index' year=day.year month=day.month day=day.day %}">{{ day }}</a></li>
-      <li id="day-next"><a href="{% url 'xfit:index' year=tomorrow.year month=tomorrow.month day=tomorrow.day %}">{{ tomorrow }}</a></li>
+    <li id="day-prev"><a href="{% url 'xfit:index' year=yesterday.year month=yesterday.month day=yesterday.day %}">{{ yesterday }}</a></li>
+    <li id="day-now"><a href="{% url 'xfit:index' year=day.year month=day.month day=day.day %}">{{ day }}</a></li>
+    <li id="day-next"><a href="{% url 'xfit:index' year=tomorrow.year month=tomorrow.month day=tomorrow.day %}">{{ tomorrow }}</a></li>
   </ul>
+{% endblock %}
+
+{% block content %}
 
   <form method="post" action="">
     <ul id="formlist">

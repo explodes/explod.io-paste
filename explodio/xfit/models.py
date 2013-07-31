@@ -191,7 +191,7 @@ class WorkoutOfTheDay(models.Model):
         verbose_name = 'workout of the day'
         verbose_name_plural = 'workouts of the day'
         unique_together = ('gym', 'workout')
-        ordering = ('-day',)
+        ordering = ('-day', 'gym__order')
 
     def detailed_name(self):
         return u'%(day)s: %(workout)s' % {

@@ -10,18 +10,25 @@ a,a:active,a:visited{
 
 #messages {
     list-style:none;
-    margin-left:0;
+    margin:0 auto;
     font-weight:600;
-    font-size:24px;
+    font-size:18px;
+    width:790px;
 }
 
-#messages li {}
+#messages li {
+    background:none repeat scroll 0 0 transparent;
+    border:1px solid black;
+    width:790px;
+    text-align:center;
+    margin:5px 0;
+}
 
 #messages li.info {
     color:#083d3d;
 }
 
-#messages li.debug,#messages li.warn,#messages li.error{
+#messages li.debug,#messages li.warning,#messages li.error{
     color:#8d080d;
 }
 
@@ -98,6 +105,7 @@ a,a:active,a:visited{
     display:inline-block;
     width:100px;
     font-style:italic;
+    cursor:default;
 }
 
 .wod-field input {
