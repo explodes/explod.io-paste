@@ -35,7 +35,7 @@ d888 '88%"     8888        888I  888I   888R    888R I888>  888E  888E          
     </ul>
     {% endif %}{% endblock messages %}
 
-    {% block content %}{% endblock content %}
+    <div id="content">{% block content %}{% endblock content %}</div>
     {% compress js %}{% block js %}{% endblock js %}{% endcompress %}
   </body>
 </html>

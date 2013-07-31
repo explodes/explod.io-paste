@@ -1,0 +1,36 @@
+body {
+    color:#444;
+    font-size:32px;
+    font-family:HelveticaNeue-Light,helvetica,arial,sans-serif;
+}
+#content {
+    padding:112px;
+}
+#login-form {
+    margin-top:24px;
+    background-color:#aaa;
+    border-radius:10px;
+    border:1px solid black;
+    width:400px;
+    margin:0 auto;
+    text-align:center;
+    padding:20px;
+}
+#login-form label {
+    text-transform:lowercase;
+}
+#login-form input {
+    background-color:#ddd;
+    font-family:HelveticaNeue-Light,helvetica,arial,sans-serif;
+}
+#login-form button {
+    background-color:#ddd;
+    border:1px solid black;
+    font-family:HelveticaNeue-Light,helvetica,arial,sans-serif;
+}
+#messages{
+    margin:0 auto;
+    width:760px;
+    text-align:center;
+    list-style:none;
+}

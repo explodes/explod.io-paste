@@ -7,5 +7,6 @@ urlpatterns = patterns('',
     url(r'^', include('explodio.main.urls', namespace='main')),
     url(r'^paste/', include('explodio.paste.urls', namespace='paste')),
     url(r'^xfit/', include('explodio.xfit.urls', namespace='xfit')),
+    url(r'^accounts/', include('explodio.accounts.urls', namespace='accounts')),
     url(r'^admin/', include(admin.site.urls)),
 )

@@ -43,6 +43,7 @@ TEMPLATE_DIRS = (
     rel('main', 'templates'),
     rel('paste', 'templates'),
     rel('xfit', 'templates'),
+    rel('accounts', 'templates'),
 )
 
 INSTALLED_APPS = (
@@ -60,6 +61,7 @@ INSTALLED_APPS = (
     'explodio.main',
     'explodio.paste',
     'explodio.xfit',
+    'explodio.accounts',
 )
 
 LOGGING = {
