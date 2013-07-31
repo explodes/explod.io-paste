@@ -109,6 +109,8 @@ COMPRESS_PRECOMPILERS = (
     #('text/foobar', 'path.to.MyPrecompilerFilter'),
 )
 
+AUTH_USER_MODEL = 'accounts.User'
+
 try:
     from local_settings import *
 except ImportError:
