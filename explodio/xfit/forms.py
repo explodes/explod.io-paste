@@ -18,7 +18,7 @@ class TimeForm(ScoreForm):
     """
     Score Form for Time
     """
-    time = forms.TimeField(required=False)
+    time = forms.TimeField(required=False, label="Time (HH:MM:SS)")
 
 class RoundsForm(ScoreForm):
     """
