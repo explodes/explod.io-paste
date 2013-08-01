@@ -1,6 +1,5 @@
 from distutils.core import setup
 
-
 setup(
     name='explod.io',
     version='1.0',
