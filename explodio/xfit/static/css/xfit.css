@@ -15,10 +15,11 @@ a,a:active,a:visited{
 }
 #messages li {
     background:none repeat scroll 0 0 transparent;
-    border:1px solid black;
+    border:1px solid #083d3d;
     width:790px;
     text-align:center;
     margin:5px 0;
+    padding:5px 0 3px;
 }
 #messages li.info {
     color:#083d3d;
@@ -46,7 +47,7 @@ a,a:active,a:visited{
     margin-left:0;
 }
 .wod {
-    border: 1px solid black;
+    border: 1px solid #083d3d;
     margin: 10px auto;
     padding: 15px;
     width: 760px;
@@ -90,13 +91,14 @@ a,a:active,a:visited{
 }
 .wod-field input {
     width:150px;
+    border:1px solid #083d3d;
 }
 .wod-field .notes input {
     width:250px;
 }
 .submit-wod {
     background:none repeat scroll 0 0 transparent;
-    border:1px solid black;
+    border:1px solid #083d3d;
     width:760px;
     padding:10px;
 }
