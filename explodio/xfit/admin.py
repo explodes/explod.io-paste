@@ -37,9 +37,11 @@ class GymAdmin(admin.ModelAdmin):
     """
     Admin for Gyms
     """
-    list_display = ('title', 'active', 'order')
+    list_display = ('title', 'active', 'order', 'email_address', 'phone_number',
+        'website')
     prepopulated_fields = {'slug': ('title',)}
     list_filter = ('active',)
+    list_editable = ('order',)
     date_hierarchy = 'created_at'
     search_fields = ('title',)
 
@@ -82,7 +84,7 @@ class WorkoutExerciseAdmin(admin.ModelAdmin):
     Admin for WorkoutExercises
     """
     list_display = ('detailed_name', 'workout', 'exercise', 'notes', 
-        'effort', 'effort_unit', 'reps', 'reps_unit')
+        'effort', 'effort_unit', 'reps', 'reps_unit',)
     date_hierarchy = 'created_at'
     search_fields = ('exercise__title', 'workout__title',)
 

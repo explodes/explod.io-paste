@@ -35,6 +35,10 @@ class Gym(models.Model):
     active = models.BooleanField(default=True, help_text='Un-check to disable '
         'this gym on the website')
 
+    email_address = models.EmailField(null=True, blank=True)
+    phone_number = models.CharField(max_length=20, null=True, blank=True)
+    website = models.URLField(null=True, blank=True)
+
     order = models.PositiveSmallIntegerField(default=0,
         help_text='Order of appearance')
 
