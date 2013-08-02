@@ -24,7 +24,8 @@ class RoundsForm(ScoreForm):
     """
     Score Form for Rounds
     """
-    rounds = forms.IntegerField(min_value=0, required=False)
+    rounds = forms.IntegerField(min_value=0, required=False,
+        label='Rounds/Reps')
 
 class WODExerciseForm(forms.ModelForm, FormHelpersMixin):
     """

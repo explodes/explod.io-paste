@@ -153,12 +153,14 @@ class WorkoutExercise(models.Model):
     def detailed_name(self):
 
         if self.effort_unit:
-            effort = u'%s %s ' % (self.effort, self.effort_unit)
+            effort_count = 'max' if self.effort == 0 else self.effort
+            effort = u'%s %s ' % (effort_count, self.effort_unit)
         else:
             effort = u''
 
         if self.reps_unit:
-            reps = u', %s %s' % (self.reps, self.reps_unit)
+            reps_count = 'max' if self.effort == 0 else self.effort
+            reps = u', %s %s' % (reps_count, self.reps_unit)
         else:
             reps = u''
 
