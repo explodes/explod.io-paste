@@ -90,6 +90,7 @@
     "time_limit": null, 
     "is_hero": true, 
     "title": "Eva", 
+    "high_round_divisor": 1, 
     "modified_at": "2013-07-30T05:40:08.267Z", 
     "notes": "", 
     "workout_type": 2, 
@@ -104,6 +105,7 @@
     "time_limit": null, 
     "is_hero": false, 
     "title": "130729", 
+    "high_round_divisor": 1, 
     "modified_at": "2013-07-30T05:42:20.901Z", 
     "notes": "", 
     "workout_type": 2, 
@@ -118,6 +120,7 @@
     "time_limit": null, 
     "is_hero": false, 
     "title": "Rest", 
+    "high_round_divisor": 1, 
     "modified_at": "2013-07-30T16:29:27.402Z", 
     "notes": "", 
     "workout_type": 2, 
@@ -132,6 +135,7 @@
     "time_limit": null, 
     "is_hero": false, 
     "title": "Conditioning 130730", 
+    "high_round_divisor": 1, 
     "modified_at": "2013-07-30T20:01:37.534Z", 
     "notes": "with a partner", 
     "workout_type": 2, 
@@ -146,6 +150,7 @@
     "time_limit": null, 
     "is_hero": false, 
     "title": "120501", 
+    "high_round_divisor": 1, 
     "modified_at": "2013-07-31T15:41:31.924Z", 
     "notes": "", 
     "workout_type": 3, 
@@ -160,6 +165,7 @@
     "time_limit": null, 
     "is_hero": false, 
     "title": "Power WOD 130731", 
+    "high_round_divisor": 1, 
     "modified_at": "2013-07-31T20:36:18.289Z", 
     "notes": "", 
     "workout_type": 3, 
@@ -174,6 +180,7 @@
     "time_limit": null, 
     "is_hero": false, 
     "title": "5K", 
+    "high_round_divisor": 1, 
     "modified_at": "2013-08-01T23:06:11.807Z", 
     "notes": "", 
     "workout_type": 2, 
@@ -188,8 +195,9 @@
     "time_limit": null, 
     "is_hero": false, 
     "title": "7x Squat Clean", 
-    "modified_at": "2013-08-02T02:00:08.965Z", 
-    "notes": "go for maximum weight", 
+    "high_round_divisor": 1, 
+    "modified_at": "2013-08-02T02:49:11.458Z", 
+    "notes": "", 
     "workout_type": 3, 
     "created_at": "2013-08-02T01:52:46.162Z", 
     "slug": "7x-squat-clean"
@@ -202,11 +210,57 @@
     "time_limit": null, 
     "is_hero": false, 
     "title": "Conditioning 130801", 
-    "modified_at": "2013-08-02T01:57:39.026Z", 
+    "high_round_divisor": 1, 
+    "modified_at": "2013-08-02T03:03:02.244Z", 
     "notes": "15s each, 45s rest between", 
     "workout_type": 1, 
     "created_at": "2013-08-02T01:57:39.026Z", 
     "slug": "conditioning-130801"
+  }
+},
+{
+  "pk": 10, 
+  "model": "xfit.workout", 
+  "fields": {
+    "time_limit": null, 
+    "is_hero": false, 
+    "title": "5x5 Push Press", 
+    "high_round_divisor": 1, 
+    "modified_at": "2013-08-02T15:02:34.701Z", 
+    "notes": "", 
+    "workout_type": 3, 
+    "created_at": "2013-08-02T15:02:34.701Z", 
+    "slug": "5x5-push-press"
+  }
+},
+{
+  "pk": 11, 
+  "model": "xfit.workout", 
+  "fields": {
+    "time_limit": null, 
+    "is_hero": false, 
+    "title": "Conditioning 130802", 
+    "high_round_divisor": 1, 
+    "modified_at": "2013-08-02T15:04:57.800Z", 
+    "notes": "", 
+    "workout_type": 2, 
+    "created_at": "2013-08-02T15:04:57.800Z", 
+    "slug": "conditioning-130802"
+  }
+},
+{
+  "pk": 12, 
+  "model": "xfit.workout", 
+  "fields": {
+    "time_limit": null, 
+    "is_hero": false, 
+    "title": "Tabata Something Else", 
+    "high_round_divisor": 1, 
+    "modified_at": "2013-08-02T15:11:48.743Z", 
+    "notes": "20 seconds on, 10 second rest, 32 rounds", 
+    "workout_type": 1, 
+    "created_at": "2013-08-02T15:07:40.857Z", 
+    "slug": "tabata-something-else"
   }
 },
 {
@@ -405,6 +459,61 @@
     "modified_at": "2013-08-02T01:57:28.925Z", 
     "slug": "burpee", 
     "title": "Burpee"
+  }
+},
+{
+  "pk": 19, 
+  "model": "xfit.exercise", 
+  "fields": {
+    "created_at": "2013-08-02T15:02:31.174Z", 
+    "notes": "", 
+    "modified_at": "2013-08-02T15:02:31.173Z", 
+    "slug": "push-press", 
+    "title": "Push Press"
+  }
+},
+{
+  "pk": 20, 
+  "model": "xfit.exercise", 
+  "fields": {
+    "created_at": "2013-08-02T15:03:46.851Z", 
+    "notes": "", 
+    "modified_at": "2013-08-02T15:03:46.851Z", 
+    "slug": "row", 
+    "title": "Row"
+  }
+},
+{
+  "pk": 21, 
+  "model": "xfit.exercise", 
+  "fields": {
+    "created_at": "2013-08-02T15:04:12.799Z", 
+    "notes": "", 
+    "modified_at": "2013-08-02T15:04:12.799Z", 
+    "slug": "overhead-squats", 
+    "title": "Overhead Squats"
+  }
+},
+{
+  "pk": 22, 
+  "model": "xfit.exercise", 
+  "fields": {
+    "created_at": "2013-08-02T15:04:40.823Z", 
+    "notes": "", 
+    "modified_at": "2013-08-02T15:04:40.823Z", 
+    "slug": "med-ball-sit-up", 
+    "title": "Med Ball Sit Up"
+  }
+},
+{
+  "pk": 23, 
+  "model": "xfit.exercise", 
+  "fields": {
+    "created_at": "2013-08-02T15:07:21.781Z", 
+    "notes": "", 
+    "modified_at": "2013-08-02T15:07:21.781Z", 
+    "slug": "squat", 
+    "title": "Squat"
   }
 },
 {
@@ -719,12 +828,12 @@
   "fields": {
     "created_at": "2013-08-02T01:57:39.027Z", 
     "effort_unit": 1, 
-    "modified_at": "2013-08-02T01:57:39.027Z", 
+    "modified_at": "2013-08-02T03:03:02.250Z", 
     "workout": 9, 
     "item_group": 1, 
-    "reps": 1, 
+    "reps": 0, 
     "order": 0, 
-    "reps_unit": null, 
+    "reps_unit": 2, 
     "notes": "", 
     "effort": 135, 
     "item_group_repeats": 5, 
@@ -737,12 +846,12 @@
   "fields": {
     "created_at": "2013-08-02T01:57:39.028Z", 
     "effort_unit": 1, 
-    "modified_at": "2013-08-02T01:57:39.028Z", 
+    "modified_at": "2013-08-02T03:03:02.254Z", 
     "workout": 9, 
     "item_group": 1, 
-    "reps": 1, 
+    "reps": 0, 
     "order": 1, 
-    "reps_unit": null, 
+    "reps_unit": 2, 
     "notes": "", 
     "effort": 25, 
     "item_group_repeats": 5, 
@@ -755,16 +864,160 @@
   "fields": {
     "created_at": "2013-08-02T01:57:39.029Z", 
     "effort_unit": null, 
-    "modified_at": "2013-08-02T01:57:39.029Z", 
+    "modified_at": "2013-08-02T03:03:02.258Z", 
     "workout": 9, 
     "item_group": 1, 
-    "reps": 1, 
+    "reps": 0, 
     "order": 2, 
-    "reps_unit": null, 
+    "reps_unit": 2, 
     "notes": "", 
     "effort": 1, 
     "item_group_repeats": 5, 
     "exercise": 18
+  }
+},
+{
+  "pk": 21, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-08-02T15:02:34.703Z", 
+    "effort_unit": 1, 
+    "modified_at": "2013-08-02T15:02:34.703Z", 
+    "workout": 10, 
+    "item_group": 1, 
+    "reps": 5, 
+    "order": 0, 
+    "reps_unit": 2, 
+    "notes": "", 
+    "effort": 0, 
+    "item_group_repeats": 5, 
+    "exercise": 19
+  }
+},
+{
+  "pk": 22, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-08-02T15:04:57.801Z", 
+    "effort_unit": 4, 
+    "modified_at": "2013-08-02T15:04:57.801Z", 
+    "workout": 11, 
+    "item_group": 1, 
+    "reps": 1, 
+    "order": 0, 
+    "reps_unit": null, 
+    "notes": "", 
+    "effort": 1500, 
+    "item_group_repeats": 1, 
+    "exercise": 20
+  }
+},
+{
+  "pk": 23, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-08-02T15:04:57.802Z", 
+    "effort_unit": 1, 
+    "modified_at": "2013-08-02T15:04:57.802Z", 
+    "workout": 11, 
+    "item_group": 1, 
+    "reps": 30, 
+    "order": 0, 
+    "reps_unit": 2, 
+    "notes": "", 
+    "effort": 115, 
+    "item_group_repeats": 1, 
+    "exercise": 21
+  }
+},
+{
+  "pk": 24, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-08-02T15:04:57.803Z", 
+    "effort_unit": 1, 
+    "modified_at": "2013-08-02T15:04:57.803Z", 
+    "workout": 11, 
+    "item_group": 1, 
+    "reps": 60, 
+    "order": 0, 
+    "reps_unit": 2, 
+    "notes": "", 
+    "effort": 20, 
+    "item_group_repeats": 1, 
+    "exercise": 22
+  }
+},
+{
+  "pk": 25, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-08-02T15:07:40.858Z", 
+    "effort_unit": null, 
+    "modified_at": "2013-08-02T15:11:48.749Z", 
+    "workout": 12, 
+    "item_group": 1, 
+    "reps": 0, 
+    "order": 0, 
+    "reps_unit": 2, 
+    "notes": "", 
+    "effort": 100, 
+    "item_group_repeats": 1, 
+    "exercise": 3
+  }
+},
+{
+  "pk": 26, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-08-02T15:07:40.859Z", 
+    "effort_unit": null, 
+    "modified_at": "2013-08-02T15:11:48.753Z", 
+    "workout": 12, 
+    "item_group": 1, 
+    "reps": 0, 
+    "order": 1, 
+    "reps_unit": 2, 
+    "notes": "", 
+    "effort": 100, 
+    "item_group_repeats": 1, 
+    "exercise": 8
+  }
+},
+{
+  "pk": 27, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-08-02T15:07:40.860Z", 
+    "effort_unit": null, 
+    "modified_at": "2013-08-02T15:11:48.757Z", 
+    "workout": 12, 
+    "item_group": 1, 
+    "reps": 0, 
+    "order": 2, 
+    "reps_unit": 2, 
+    "notes": "", 
+    "effort": 100, 
+    "item_group_repeats": 1, 
+    "exercise": 11
+  }
+},
+{
+  "pk": 28, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-08-02T15:07:40.860Z", 
+    "effort_unit": null, 
+    "modified_at": "2013-08-02T15:11:48.761Z", 
+    "workout": 12, 
+    "item_group": 1, 
+    "reps": 0, 
+    "order": 3, 
+    "reps_unit": 2, 
+    "notes": "", 
+    "effort": 100, 
+    "item_group_repeats": 1, 
+    "exercise": 23
   }
 },
 {
@@ -864,6 +1117,39 @@
     "modified_at": "2013-08-02T01:58:23.333Z", 
     "workout": 9, 
     "day": "2013-08-01"
+  }
+},
+{
+  "pk": 10, 
+  "model": "xfit.workoutoftheday", 
+  "fields": {
+    "created_at": "2013-08-02T15:03:05.459Z", 
+    "gym": 2, 
+    "modified_at": "2013-08-02T15:03:05.459Z", 
+    "workout": 10, 
+    "day": "2013-08-02"
+  }
+},
+{
+  "pk": 11, 
+  "model": "xfit.workoutoftheday", 
+  "fields": {
+    "created_at": "2013-08-02T15:05:47.185Z", 
+    "gym": 2, 
+    "modified_at": "2013-08-02T15:05:47.185Z", 
+    "workout": 11, 
+    "day": "2013-08-02"
+  }
+},
+{
+  "pk": 12, 
+  "model": "xfit.workoutoftheday", 
+  "fields": {
+    "created_at": "2013-08-02T15:07:50.678Z", 
+    "gym": 1, 
+    "modified_at": "2013-08-02T15:07:50.678Z", 
+    "workout": 12, 
+    "day": "2013-08-02"
   }
 }
 ]
