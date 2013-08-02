@@ -163,8 +163,12 @@ class WorkoutExercise(models.Model):
     def detailed_name(self):
 
         effort = self.unit_string(self.effort, self.effort_unit)
+        # example: 5000 meter\sRun
+        effort = u'%s ' % effort if effort else effort
+
         reps = self.unit_string(self.reps, self.reps_unit)
-        reps = ', %s' % reps if reps else reps
+        # example: Push Ups, 100 reps
+        reps = u', %s' % reps if reps else reps
 
         notes = u' (%s)' % self.notes if self.notes else u''
 
