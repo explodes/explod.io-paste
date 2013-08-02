@@ -46,10 +46,10 @@ class GymAdmin(admin.ModelAdmin):
     list_display = (
         'title',
         'active',
-        'order',
         a.email('email_address'),
         a.phone('phone_number'),
         a.link('website'),
+        'order',
     )
     prepopulated_fields = {'slug': ('title',)}
     list_filter = ('active',)
