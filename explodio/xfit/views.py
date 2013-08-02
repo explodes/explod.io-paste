@@ -25,7 +25,7 @@ class XFitView(TemplateView):
             user = self.request.user
         q = models.Gym.objects.active()
         if user:
-            q = q.for_user(user)
+            q = q.subscribed_by(user)
         return q
 
     def get_wods(self, day=None):

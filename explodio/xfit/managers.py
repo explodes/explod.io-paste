@@ -8,7 +8,22 @@ class GymManager(managers.ActiveQuerySetManager):
 
     class QuerySet(managers.ActiveQuerySet):
 
-        def for_user(self, user):
+        def subscribed_by(self, user):
+            """
+            Filter for a specific user
+            :param user: User who may have subscribed to Gyms
+            :return: QuerySet of Gym
+            """
+            return self
+
+class GymLocationManager(managers.ActiveQuerySetManager):
+    """
+    Custom manger for Gym Locations
+    """
+
+    class QuerySet(managers.ActiveQuerySet):
+
+        def subscribed_by(self, user):
             """
             Filter for a specific user
             :param user: User who may have subscribed to Gyms

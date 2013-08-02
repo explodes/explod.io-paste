@@ -8,6 +8,7 @@ class Command(BaseCommand):
     dump_models = (
         'xfit.Unit',
         'xfit.Gym',
+        'xfit.GymLocation',
         'xfit.Workout',
         'xfit.Exercise',
         'xfit.WorkoutExercise',

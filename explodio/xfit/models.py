@@ -6,6 +6,9 @@ from explodio.xfit.templatetags import xfit_tags
 
 
 class Unit(models.Model):
+    """
+    Model representing a unit of work, i.e. Pound, Meter, Second
+    """
 
     title = models.CharField(max_length=50)
     plural = models.CharField(max_length=50)
@@ -22,11 +25,14 @@ class Unit(models.Model):
         return self.title
 
 class Gym(models.Model):
+    """
+    Gym hosting certain WODs
+    """
 
     title = models.CharField(max_length=50, help_text='Title of this gym')
     slug = models.SlugField(max_length=50, unique=True,
         help_text='Used for URLs')
-    active = models.BooleanField(default=True, help_text='Uncheck to disable '
+    active = models.BooleanField(default=True, help_text='Un-check to disable '
         'this gym on the website')
 
     order = models.PositiveSmallIntegerField(default=0,
@@ -44,6 +50,59 @@ class Gym(models.Model):
 
     def __unicode__(self):
         return self.title
+
+class GymLocation(models.Model):
+    """
+    Model for a physical location of a Gym
+    """
+
+    gym = models.ForeignKey(Gym, related_name='locations')
+
+    title = models.CharField(max_length=50, help_text='Title of this location')
+    slug = models.SlugField(max_length=50, help_text='Used for URLs')
+    active = models.BooleanField(default=True, help_text='Un-check to disable '
+        'this location on the website')
+
+    address1 = models.CharField(max_length=75, null=True, blank=True)
+    address2 = models.CharField(max_length=75, null=True, blank=True)
+    city = models.CharField(max_length=75, null=True, blank=True)
+    state = models.CharField(max_length=75, null=True, blank=True)
+    postal_code = models.CharField(max_length=75, null=True, blank=True)
+    country = models.CharField(max_length=75, null=True, blank=True)
+
+    longitude = models.DecimalField(max_digits=12, decimal_places=9, null=True,
+        blank=True)
+    latitude = models.DecimalField(max_digits=12, decimal_places=9, null=True,
+        blank=True)
+
+    email_address = models.EmailField(null=True, blank=True)
+    phone_number = models.CharField(max_length=20, null=True, blank=True)
+    website = models.URLField(null=True, blank=True)
+
+    modified_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    objects = managers.GymLocationManager()
+
+    class Meta:
+        verbose_name = 'gym location'
+        verbose_name_plural = 'gym locations'
+        unique_together = (
+            ('gym', 'slug'),
+        )
+
+    def address_string(self):
+        return u', '.join(filter(bool, (
+            self.address1,
+            self.address2,
+            self.city,
+            self.state,
+            self.postal_code,
+            self.country,
+        )))
+
+    def __unicode__(self):
+        return self.address_string()
 
 class Workout(models.Model):
 

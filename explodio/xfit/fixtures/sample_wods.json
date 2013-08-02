@@ -77,10 +77,33 @@
   "fields": {
     "title": "Crossfit Mt. Olympus", 
     "created_at": "2013-07-30T05:40:30.470Z", 
-    "modified_at": "2013-07-31T18:54:00.524Z", 
+    "modified_at": "2013-08-02T16:55:55.278Z", 
     "slug": "crossfit-mt-olympus", 
     "active": true, 
     "order": 100
+  }
+},
+{
+  "pk": 1, 
+  "model": "xfit.gymlocation", 
+  "fields": {
+    "phone_number": "+1 (801) 935-4032", 
+    "city": "Salt Lake City", 
+    "title": "Headquarters", 
+    "address1": "2687 Preston St", 
+    "gym": 2, 
+    "modified_at": "2013-08-02T16:55:55.279Z", 
+    "longitude": null, 
+    "slug": "headquarters", 
+    "website": "http://crossfitmtolympus.com/", 
+    "latitude": null, 
+    "state": "UT", 
+    "postal_code": "84106", 
+    "country": "", 
+    "active": true, 
+    "created_at": "2013-08-02T16:55:55.279Z", 
+    "email_address": "info@crossfitmtolympus.com", 
+    "address2": ""
   }
 },
 {

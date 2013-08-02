@@ -13,6 +13,26 @@ class UnitAdmin(admin.ModelAdmin):
 
     readonly_fields = ('modified_at', 'created_at',)
 
+class GymLocationAdmin(admin.ModelAdmin):
+    """
+    Admin for Gym Locations
+    """
+    list_display = ('address_string', 'email_address', 'phone_number',
+        'website', 'longitude', 'latitude')
+    prepopulated_fields = {'slug': ('title',)}
+    list_filter = ('active',)
+    date_hierarchy = 'created_at'
+    search_fields = ('gym__title', 'title',)
+
+    readonly_fields = ('modified_at', 'created_at',)
+
+class GymLocationInline(admin.TabularInline):
+    """
+    Inline for Gym Locations
+    """
+    model = models.GymLocation
+    extra = 0
+
 class GymAdmin(admin.ModelAdmin):
     """
     Admin for Gyms
@@ -23,6 +43,7 @@ class GymAdmin(admin.ModelAdmin):
     date_hierarchy = 'created_at'
     search_fields = ('title',)
 
+    inlines = (GymLocationInline,)
     readonly_fields = ('modified_at', 'created_at',)
 
 class WorkoutExerciseInline(admin.TabularInline):
@@ -42,7 +63,7 @@ class WorkoutAdmin(admin.ModelAdmin):
     date_hierarchy = 'created_at'
     search_fields = ('title',)
 
-    inlines = [WorkoutExerciseInline]
+    inlines = (WorkoutExerciseInline,)
     readonly_fields = ('modified_at', 'created_at',)
 
 class ExerciseAdmin(admin.ModelAdmin):
@@ -104,11 +125,12 @@ class UserWODAdmin(admin.ModelAdmin):
     date_hierarchy = 'created_at'
     search_fields = ('wod__title', 'user__username', 'user__email',)
 
-    inlines = [WODExerciseInline]
+    inlines = (WODExerciseInline,)
     readonly_fields = ('modified_at', 'created_at',)
 
 admin.site.register(models.Unit, UnitAdmin)
 admin.site.register(models.Gym, GymAdmin)
+admin.site.register(models.GymLocation, GymLocationAdmin)
 admin.site.register(models.Workout, WorkoutAdmin)
 admin.site.register(models.Exercise, ExerciseAdmin)
 admin.site.register(models.WorkoutExercise, WorkoutExerciseAdmin)
