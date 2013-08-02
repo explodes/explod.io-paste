@@ -17,7 +17,7 @@
       {% for wod_form in wod_forms %}
         <li class="wod">
           <h3 class="wod-gym">{{ wod_form.wod.gym }}</h3>
-          <h4 class="wod-title">{{ wod_form.wod.workout.title }}</h4>
+          <h4 class="wod-title">{{ wod_form.wod.workout }}</h4>
 
           {% if wod_form.wod.workout.exercises.exists %}
 
