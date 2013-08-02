@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from explodio.common import admin as a
 from explodio.xfit import models
 
 
@@ -17,8 +18,13 @@ class GymLocationAdmin(admin.ModelAdmin):
     """
     Admin for Gym Locations
     """
-    list_display = ('address_string', 'email_address', 'phone_number',
-        'website', 'longitude', 'latitude')
+    list_display = (
+        'address_string',
+        a.email('email_address'),
+        a.phone('phone_number'),
+        a.link('website'),
+        a.lat_long(('longitude', 'latitude'))
+    )
     prepopulated_fields = {'slug': ('title',)}
     list_filter = ('active',)
     date_hierarchy = 'created_at'
@@ -37,8 +43,14 @@ class GymAdmin(admin.ModelAdmin):
     """
     Admin for Gyms
     """
-    list_display = ('title', 'active', 'order', 'email_address', 'phone_number',
-        'website')
+    list_display = (
+        'title',
+        'active',
+        'order',
+        a.email('email_address'),
+        a.phone('phone_number'),
+        a.link('website'),
+    )
     prepopulated_fields = {'slug': ('title',)}
     list_filter = ('active',)
     list_editable = ('order',)
@@ -83,8 +95,16 @@ class WorkoutExerciseAdmin(admin.ModelAdmin):
     """
     Admin for WorkoutExercises
     """
-    list_display = ('detailed_name', 'workout', 'exercise', 'notes', 
-        'effort', 'effort_unit', 'reps', 'reps_unit',)
+    list_display = (
+        'detailed_name',
+        a.edit_object_link('workout'),
+        a.edit_object_link('exercise'),
+        'notes',
+        'effort',
+        a.edit_object_link('effort_unit'),
+        'reps',
+        a.edit_object_link('reps_unit'),
+    )
     date_hierarchy = 'created_at'
     search_fields = ('exercise__title', 'workout__title',)
 
@@ -94,7 +114,12 @@ class WorkoutOfTheDayAdmin(admin.ModelAdmin):
     """
     Admin for WorkoutOfTheDays
     """
-    list_display = ('detailed_name', 'gym', 'workout', 'day')
+    list_display = (
+        'detailed_name',
+        a.edit_object_link('gym'),
+        a.edit_object_link('workout'),
+        'day'
+    )
     list_filter = ('gym',)
     date_hierarchy = 'day'
     search_fields = ('workout__title',)
@@ -105,7 +130,13 @@ class WODExerciseAdmin(admin.ModelAdmin):
     """
     Admin for WODExercises
     """
-    list_display = ('detailed_name', 'goal', 'effort', 'reps', 'notes')
+    list_display = (
+        'detailed_name',
+        a.edit_object_link('goal'),
+        'effort',
+        'reps',
+        'notes'
+    )
     date_hierarchy = 'created_at'
     search_fields = ('user_wod__wod__title', 'user_wod__user__username',
         'user_wod__user__email',)
@@ -123,7 +154,10 @@ class UserWODAdmin(admin.ModelAdmin):
     """
     Admin for UserWODs
     """
-    list_display = ('user', 'wod')
+    list_display = (
+        a.edit_object_link('user'),
+        a.edit_object_link('wod'),
+    )
     date_hierarchy = 'created_at'
     search_fields = ('wod__title', 'user__username', 'user__email',)
 
