@@ -36,7 +36,7 @@ class WorkoutAdmin(admin.ModelAdmin):
     """
     Admin for Workouts
     """
-    list_display = ('title', 'is_hero')
+    list_display = ('title', 'notes', 'is_hero')
     prepopulated_fields = {'slug': ('title',)}
     list_filter = ('is_hero',)
     date_hierarchy = 'created_at'
@@ -60,8 +60,8 @@ class WorkoutExerciseAdmin(admin.ModelAdmin):
     """
     Admin for WorkoutExercises
     """
-    list_display = ('detailed_name', 'workout', 'exercise', 'effort',
-        'effort_unit', 'reps', 'reps_unit')
+    list_display = ('detailed_name', 'workout', 'exercise', 'notes', 
+        'effort', 'effort_unit', 'reps', 'reps_unit')
     date_hierarchy = 'created_at'
     search_fields = ('exercise__title', 'workout__title',)
 
@@ -82,7 +82,7 @@ class WODExerciseAdmin(admin.ModelAdmin):
     """
     Admin for WODExercises
     """
-    list_display = ('detailed_name', 'goal', 'effort', 'reps')
+    list_display = ('detailed_name', 'goal', 'effort', 'reps', 'notes')
     date_hierarchy = 'created_at'
     search_fields = ('user_wod__wod__title', 'user_wod__user__username',
         'user_wod__user__email',)
