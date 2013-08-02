@@ -50,12 +50,22 @@
   }
 },
 {
+  "pk": 6, 
+  "model": "xfit.unit", 
+  "fields": {
+    "modified_at": "2013-08-02T01:54:41.358Z", 
+    "created_at": "2013-08-02T01:54:41.358Z", 
+    "plural": "seconds", 
+    "title": "second"
+  }
+},
+{
   "pk": 1, 
   "model": "xfit.gym", 
   "fields": {
     "title": "Official Crossfit", 
     "created_at": "2013-07-30T05:38:24.287Z", 
-    "modified_at": "2013-07-30T05:38:24.287Z", 
+    "modified_at": "2013-08-01T23:11:59.665Z", 
     "slug": "official-crossfit", 
     "active": true, 
     "order": 0
@@ -155,6 +165,48 @@
     "workout_type": 3, 
     "created_at": "2013-07-31T20:36:18.289Z", 
     "slug": "power-wod-130731"
+  }
+},
+{
+  "pk": 7, 
+  "model": "xfit.workout", 
+  "fields": {
+    "time_limit": null, 
+    "is_hero": false, 
+    "title": "5K", 
+    "modified_at": "2013-08-01T23:06:11.807Z", 
+    "notes": "", 
+    "workout_type": 2, 
+    "created_at": "2013-08-01T23:06:11.807Z", 
+    "slug": "5k"
+  }
+},
+{
+  "pk": 8, 
+  "model": "xfit.workout", 
+  "fields": {
+    "time_limit": null, 
+    "is_hero": false, 
+    "title": "7x Squat Clean", 
+    "modified_at": "2013-08-02T02:00:08.965Z", 
+    "notes": "go for maximum weight", 
+    "workout_type": 3, 
+    "created_at": "2013-08-02T01:52:46.162Z", 
+    "slug": "7x-squat-clean"
+  }
+},
+{
+  "pk": 9, 
+  "model": "xfit.workout", 
+  "fields": {
+    "time_limit": null, 
+    "is_hero": false, 
+    "title": "Conditioning 130801", 
+    "modified_at": "2013-08-02T01:57:39.026Z", 
+    "notes": "15s each, 45s rest between", 
+    "workout_type": 1, 
+    "created_at": "2013-08-02T01:57:39.026Z", 
+    "slug": "conditioning-130801"
   }
 },
 {
@@ -298,6 +350,61 @@
     "modified_at": "2013-07-31T20:36:04.700Z", 
     "slug": "front-squat", 
     "title": "Front Squat"
+  }
+},
+{
+  "pk": 14, 
+  "model": "xfit.exercise", 
+  "fields": {
+    "created_at": "2013-08-02T01:52:33.870Z", 
+    "notes": "", 
+    "modified_at": "2013-08-02T01:52:33.870Z", 
+    "slug": "squat-clean", 
+    "title": "Squat Clean"
+  }
+},
+{
+  "pk": 15, 
+  "model": "xfit.exercise", 
+  "fields": {
+    "created_at": "2013-08-02T01:53:41.359Z", 
+    "notes": "", 
+    "modified_at": "2013-08-02T01:53:41.359Z", 
+    "slug": "thruster", 
+    "title": "Thruster"
+  }
+},
+{
+  "pk": 16, 
+  "model": "xfit.exercise", 
+  "fields": {
+    "created_at": "2013-08-02T01:54:22.605Z", 
+    "notes": "", 
+    "modified_at": "2013-08-02T01:54:22.604Z", 
+    "slug": "rest", 
+    "title": "Rest"
+  }
+},
+{
+  "pk": 17, 
+  "model": "xfit.exercise", 
+  "fields": {
+    "created_at": "2013-08-02T01:57:21.216Z", 
+    "notes": "", 
+    "modified_at": "2013-08-02T01:57:21.216Z", 
+    "slug": "weighted-pull-up", 
+    "title": "Weighted Pull Up"
+  }
+},
+{
+  "pk": 18, 
+  "model": "xfit.exercise", 
+  "fields": {
+    "created_at": "2013-08-02T01:57:28.925Z", 
+    "notes": "", 
+    "modified_at": "2013-08-02T01:57:28.925Z", 
+    "slug": "burpee", 
+    "title": "Burpee"
   }
 },
 {
@@ -571,6 +678,96 @@
   }
 },
 {
+  "pk": 16, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-08-01T23:06:11.809Z", 
+    "effort_unit": 4, 
+    "modified_at": "2013-08-01T23:06:11.808Z", 
+    "workout": 7, 
+    "item_group": 1, 
+    "reps": 1, 
+    "order": 0, 
+    "reps_unit": null, 
+    "notes": "", 
+    "effort": 5000, 
+    "item_group_repeats": 1, 
+    "exercise": 1
+  }
+},
+{
+  "pk": 17, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-08-02T01:52:46.163Z", 
+    "effort_unit": 1, 
+    "modified_at": "2013-08-02T02:00:08.971Z", 
+    "workout": 8, 
+    "item_group": 1, 
+    "reps": 1, 
+    "order": 0, 
+    "reps_unit": 2, 
+    "notes": "", 
+    "effort": 0, 
+    "item_group_repeats": 7, 
+    "exercise": 14
+  }
+},
+{
+  "pk": 18, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-08-02T01:57:39.027Z", 
+    "effort_unit": 1, 
+    "modified_at": "2013-08-02T01:57:39.027Z", 
+    "workout": 9, 
+    "item_group": 1, 
+    "reps": 1, 
+    "order": 0, 
+    "reps_unit": null, 
+    "notes": "", 
+    "effort": 135, 
+    "item_group_repeats": 5, 
+    "exercise": 15
+  }
+},
+{
+  "pk": 19, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-08-02T01:57:39.028Z", 
+    "effort_unit": 1, 
+    "modified_at": "2013-08-02T01:57:39.028Z", 
+    "workout": 9, 
+    "item_group": 1, 
+    "reps": 1, 
+    "order": 1, 
+    "reps_unit": null, 
+    "notes": "", 
+    "effort": 25, 
+    "item_group_repeats": 5, 
+    "exercise": 17
+  }
+},
+{
+  "pk": 20, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-08-02T01:57:39.029Z", 
+    "effort_unit": null, 
+    "modified_at": "2013-08-02T01:57:39.029Z", 
+    "workout": 9, 
+    "item_group": 1, 
+    "reps": 1, 
+    "order": 2, 
+    "reps_unit": null, 
+    "notes": "", 
+    "effort": 1, 
+    "item_group_repeats": 5, 
+    "exercise": 18
+  }
+},
+{
   "pk": 1, 
   "model": "xfit.workoutoftheday", 
   "fields": {
@@ -634,6 +831,39 @@
     "modified_at": "2013-07-31T20:38:30.831Z", 
     "workout": 6, 
     "day": "2013-07-30"
+  }
+},
+{
+  "pk": 7, 
+  "model": "xfit.workoutoftheday", 
+  "fields": {
+    "created_at": "2013-08-01T23:06:28.875Z", 
+    "gym": 1, 
+    "modified_at": "2013-08-01T23:06:28.874Z", 
+    "workout": 7, 
+    "day": "2013-08-01"
+  }
+},
+{
+  "pk": 8, 
+  "model": "xfit.workoutoftheday", 
+  "fields": {
+    "created_at": "2013-08-02T01:52:49.775Z", 
+    "gym": 2, 
+    "modified_at": "2013-08-02T01:52:49.775Z", 
+    "workout": 8, 
+    "day": "2013-08-01"
+  }
+},
+{
+  "pk": 9, 
+  "model": "xfit.workoutoftheday", 
+  "fields": {
+    "created_at": "2013-08-02T01:58:23.333Z", 
+    "gym": 2, 
+    "modified_at": "2013-08-02T01:58:23.333Z", 
+    "workout": 9, 
+    "day": "2013-08-01"
   }
 }
 ]
