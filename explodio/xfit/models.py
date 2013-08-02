@@ -121,17 +121,18 @@ class WorkoutExercise(models.Model):
         help_text='How many times this series is repeated')
 
     effort = models.PositiveSmallIntegerField(default=100,
-        help_text='Effort required, generally a weight or distance')
+        help_text='Effort required, generally a weight or distance. '
+            '0 indicates "max."')
     effort_unit = models.ForeignKey(Unit, default=1, blank=True, null=True,
         help_text='Unit of effort, either empty if it does not apply, like for '
         'push-ups, or something like, "pounds" for weights or weighted runs',
         related_name='+')
 
-
     exercise = models.ForeignKey(Exercise, help_text='The exerted movement')
 
     reps = models.PositiveSmallIntegerField(default=1, 
-        help_text='How many times the movement is repeated, or for how far')
+        help_text='How many times the movement is repeated, or for how far. '
+            '0 indicates "max."')
     reps_unit = models.ForeignKey(Unit, default=2, blank=True, null=True,
         help_text='Unit of repetition, usually "reps" or "feet" for weighted '
         'runs', related_name='+')
