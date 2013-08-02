@@ -201,6 +201,6 @@ def lat_long(obj, value, empty='?'):
         else:
             lng = '%s&deg;E' % lng
     else:
-        lat = '%s&deg;E' % empty
+        lng = '%s&deg;E' % empty
 
     return '%s %s' % (lat, lng)
