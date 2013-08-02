@@ -24,11 +24,40 @@ class Migration(SchemaMigration):
             ('title', self.gf('django.db.models.fields.CharField')(max_length=50)),
             ('slug', self.gf('django.db.models.fields.SlugField')(unique=True, max_length=50)),
             ('active', self.gf('django.db.models.fields.BooleanField')(default=True)),
+            ('email_address', self.gf('django.db.models.fields.EmailField')(max_length=75, null=True, blank=True)),
+            ('phone_number', self.gf('django.db.models.fields.CharField')(max_length=20, null=True, blank=True)),
+            ('website', self.gf('django.db.models.fields.URLField')(max_length=200, null=True, blank=True)),
             ('order', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=0)),
             ('modified_at', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
             ('created_at', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
         ))
         db.send_create_signal(u'xfit', ['Gym'])
+
+        # Adding model 'GymLocation'
+        db.create_table(u'xfit_gymlocation', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('gym', self.gf('django.db.models.fields.related.ForeignKey')(related_name='locations', to=orm['xfit.Gym'])),
+            ('title', self.gf('django.db.models.fields.CharField')(max_length=50)),
+            ('slug', self.gf('django.db.models.fields.SlugField')(max_length=50)),
+            ('active', self.gf('django.db.models.fields.BooleanField')(default=True)),
+            ('address1', self.gf('django.db.models.fields.CharField')(max_length=75, null=True, blank=True)),
+            ('address2', self.gf('django.db.models.fields.CharField')(max_length=75, null=True, blank=True)),
+            ('city', self.gf('django.db.models.fields.CharField')(max_length=75, null=True, blank=True)),
+            ('state', self.gf('django.db.models.fields.CharField')(max_length=75, null=True, blank=True)),
+            ('postal_code', self.gf('django.db.models.fields.CharField')(max_length=75, null=True, blank=True)),
+            ('country', self.gf('django.db.models.fields.CharField')(max_length=75, null=True, blank=True)),
+            ('latitude', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=12, decimal_places=9, blank=True)),
+            ('longitude', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=12, decimal_places=9, blank=True)),
+            ('email_address', self.gf('django.db.models.fields.EmailField')(max_length=75, null=True, blank=True)),
+            ('phone_number', self.gf('django.db.models.fields.CharField')(max_length=20, null=True, blank=True)),
+            ('website', self.gf('django.db.models.fields.URLField')(max_length=200, null=True, blank=True)),
+            ('modified_at', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
+            ('created_at', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
+        ))
+        db.send_create_signal(u'xfit', ['GymLocation'])
+
+        # Adding unique constraint on 'GymLocation', fields ['gym', 'slug']
+        db.create_unique(u'xfit_gymlocation', ['gym_id', 'slug'])
 
         # Adding model 'Workout'
         db.create_table(u'xfit_workout', (
@@ -38,6 +67,7 @@ class Migration(SchemaMigration):
             ('is_hero', self.gf('django.db.models.fields.BooleanField')(default=False)),
             ('workout_type', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=2)),
             ('time_limit', self.gf('django.db.models.fields.TimeField')(null=True, blank=True)),
+            ('high_round_divisor', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=1)),
             ('notes', self.gf('django.db.models.fields.CharField')(max_length=50, blank=True)),
             ('modified_at', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
             ('created_at', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
@@ -117,11 +147,17 @@ class Migration(SchemaMigration):
         # Removing unique constraint on 'WorkoutOfTheDay', fields ['gym', 'workout']
         db.delete_unique(u'xfit_workoutoftheday', ['gym_id', 'workout_id'])
 
+        # Removing unique constraint on 'GymLocation', fields ['gym', 'slug']
+        db.delete_unique(u'xfit_gymlocation', ['gym_id', 'slug'])
+
         # Deleting model 'Unit'
         db.delete_table(u'xfit_unit')
 
         # Deleting model 'Gym'
         db.delete_table(u'xfit_gym')
+
+        # Deleting model 'GymLocation'
+        db.delete_table(u'xfit_gymlocation')
 
         # Deleting model 'Workout'
         db.delete_table(u'xfit_workout')
@@ -192,11 +228,35 @@ class Migration(SchemaMigration):
             'Meta': {'ordering': "('order',)", 'object_name': 'Gym'},
             'active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'created_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
+            'email_address': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'modified_at': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
             'order': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
+            'phone_number': ('django.db.models.fields.CharField', [], {'max_length': '20', 'null': 'True', 'blank': 'True'}),
             'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '50'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '50'})
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
+            'website': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'})
+        },
+        u'xfit.gymlocation': {
+            'Meta': {'unique_together': "(('gym', 'slug'),)", 'object_name': 'GymLocation'},
+            'active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
+            'address1': ('django.db.models.fields.CharField', [], {'max_length': '75', 'null': 'True', 'blank': 'True'}),
+            'address2': ('django.db.models.fields.CharField', [], {'max_length': '75', 'null': 'True', 'blank': 'True'}),
+            'city': ('django.db.models.fields.CharField', [], {'max_length': '75', 'null': 'True', 'blank': 'True'}),
+            'country': ('django.db.models.fields.CharField', [], {'max_length': '75', 'null': 'True', 'blank': 'True'}),
+            'created_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
+            'email_address': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'null': 'True', 'blank': 'True'}),
+            'gym': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'locations'", 'to': u"orm['xfit.Gym']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'latitude': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '12', 'decimal_places': '9', 'blank': 'True'}),
+            'longitude': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '12', 'decimal_places': '9', 'blank': 'True'}),
+            'modified_at': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
+            'phone_number': ('django.db.models.fields.CharField', [], {'max_length': '20', 'null': 'True', 'blank': 'True'}),
+            'postal_code': ('django.db.models.fields.CharField', [], {'max_length': '75', 'null': 'True', 'blank': 'True'}),
+            'slug': ('django.db.models.fields.SlugField', [], {'max_length': '50'}),
+            'state': ('django.db.models.fields.CharField', [], {'max_length': '75', 'null': 'True', 'blank': 'True'}),
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
+            'website': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'})
         },
         u'xfit.unit': {
             'Meta': {'ordering': "('title',)", 'object_name': 'Unit'},
@@ -230,6 +290,7 @@ class Migration(SchemaMigration):
         u'xfit.workout': {
             'Meta': {'ordering': "('title',)", 'object_name': 'Workout'},
             'created_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
+            'high_round_divisor': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '1'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'is_hero': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'modified_at': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
