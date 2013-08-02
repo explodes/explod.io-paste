@@ -74,9 +74,9 @@ class GymLocation(models.Model):
     postal_code = models.CharField(max_length=75, null=True, blank=True)
     country = models.CharField(max_length=75, null=True, blank=True)
 
-    longitude = models.DecimalField(max_digits=12, decimal_places=9, null=True,
-        blank=True)
     latitude = models.DecimalField(max_digits=12, decimal_places=9, null=True,
+        blank=True)
+    longitude = models.DecimalField(max_digits=12, decimal_places=9, null=True,
         blank=True)
 
     email_address = models.EmailField(null=True, blank=True)

@@ -189,11 +189,11 @@ def lat_long(obj, value, empty='?'):
 
     if lat is not None:
         if lat < 0:
-            lat = '%s&deg;S' % abs(lat)
+            lat = '%s&deg;N' % abs(lat)
         else:
-            lat = '%s&deg;N' % lat
+            lat = '%s&deg;S' % lat
     else:
-        lat = '%s&deg;N' % empty
+        lat = '%s&deg;S' % empty
 
     if lng is not None:
         if lng < 0:
