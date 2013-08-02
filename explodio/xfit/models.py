@@ -69,6 +69,12 @@ class Workout(models.Model):
     time_limit = models.TimeField(blank=True, null=True,
         help_text='For AMRAP, how much time is allowed')
 
+    high_round_divisor = models.PositiveSmallIntegerField(default=1,
+        help_text='When the number of rounds is high, filling them all out is '
+            'a real pain. Put in the notes "32 rounds" and put 32 in this box. '
+            'Recorded reps or distance will be divided by 32, per round, in '
+            'that case.')
+
     notes= models.CharField(max_length=50, blank=True,
         help_text='Optional special instructions')
 
