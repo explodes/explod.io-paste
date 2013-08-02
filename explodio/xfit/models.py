@@ -2,6 +2,7 @@ from django.conf import settings
 from django.db import models
 
 from explodio.xfit import managers
+from explodio.xfit.templatetags import xfit_tags
 
 
 class Unit(models.Model):
@@ -82,7 +83,8 @@ class Workout(models.Model):
         ordering = ('title',)
 
     def __unicode__(self):
-        return self.title
+        notes = u' (%s)' % self.notes if self.notes else u''
+        return u'%s%s' % (self.title, notes)
 
 class Exercise(models.Model):
 
@@ -150,19 +152,18 @@ class WorkoutExercise(models.Model):
         verbose_name_plural = 'workout exercises'
         ordering = ('workout', 'item_group', 'order',)
 
+    def unit_string(self, amount, unit):
+        if unit:
+            amount = 'max' if amount == 0 else amount
+            unit = xfit_tags.pluralize_unit(unit, amount)
+            return u'%s %s' % (amount, unit)
+        return u''
+
     def detailed_name(self):
 
-        if self.effort_unit:
-            effort_count = 'max' if self.effort == 0 else self.effort
-            effort = u'%s %s ' % (effort_count, self.effort_unit)
-        else:
-            effort = u''
-
-        if self.reps_unit:
-            reps_count = 'max' if self.effort == 0 else self.effort
-            reps = u', %s %s' % (reps_count, self.reps_unit)
-        else:
-            reps = u''
+        effort = self.unit_string(self.effort, self.effort_unit)
+        reps = self.unit_string(self.reps, self.reps_unit)
+        reps = ', %s' % reps if reps else reps
 
         notes = u' (%s)' % self.notes if self.notes else u''
 
