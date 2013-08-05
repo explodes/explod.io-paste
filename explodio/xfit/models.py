@@ -267,7 +267,6 @@ class WorkoutOfTheDay(models.Model):
     class Meta:
         verbose_name = 'workout of the day'
         verbose_name_plural = 'workouts of the day'
-        unique_together = ('gym', 'workout')
         ordering = ('-day', 'gym__order')
 
     def detailed_name(self):
