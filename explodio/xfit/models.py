@@ -171,7 +171,7 @@ class Exercise(models.Model):
     class Meta:
         verbose_name = 'exercise'
         verbose_name_plural = 'exercises'
-        ordering = ('title',)
+        ordering = ('title', 'notes')
 
     def __unicode__(self):
         if self.notes:
