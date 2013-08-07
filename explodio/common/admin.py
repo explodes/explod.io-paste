@@ -16,7 +16,7 @@ def _clean_short_description(description):
         description = description[0]
     return description.replace('_', ' ')
 
-def prop_formatter(formatter):
+def prop_formatter(allow_none=False, call_callables=True):
     """
     Format the value of a property for the admin change_list
     :param formatter: Function that takes an instance, attribute's value, and
@@ -33,21 +33,26 @@ def prop_formatter(formatter):
             truncate('description', length=30),
         )
     """
-    @functools.wraps(formatter)
-    def decorator(prop, description=None, none=u'(None)', **format):
+    def prop_formatter_decorator(formatter):
         @functools.wraps(formatter)
-        def wrapper(obj):
-            value = getattr(obj, prop)
-            if value is not None:
-                return formatter(obj, value, **format)
-            else:
-                return none
-        wrapper.allow_tags = True
-        wrapper.short_description = _clean_short_description(description or prop)
-        return wrapper
-    return decorator
+        def decorator(prop, description=None, none=u'(None)', **format):
+            @functools.wraps(formatter)
+            def wrapper(obj):
+                value = getattr(obj, prop)
+                if callable(value) and call_callables:
+                    value = value()
+                if allow_none or value is not None:
+                    return formatter(obj, value, **format)
+                else:
+                    return none
+            wrapper.allow_tags = True
+            wrapper.short_description = _clean_short_description(description or prop)
+            return wrapper
+        return decorator
 
-def multi_prop_formatter(default_description):
+    return prop_formatter_decorator
+
+def multi_prop_formatter(default_description, call_callables=True):
     """
     Format multiple properties at once, i.e. both Latitude and Longitude
     :param default_description: The default description shown
@@ -58,8 +63,11 @@ def multi_prop_formatter(default_description):
         def decorator(props, description=default_description, **format):
             @functools.wraps(formatter)
             def wrapper(obj):
-                value = operator.attrgetter(*props)(obj)
-                return formatter(obj, value, **format)
+                values= operator.attrgetter(*props)(obj)
+                if call_callables:
+                    values = [value() if callable(value) else value
+                              for value in values]
+                return formatter(obj, values, **format)
             wrapper.allow_tags = True
             wrapper.short_description = _clean_short_description(description)
             return wrapper
@@ -75,12 +83,7 @@ def _build_link(obj, url, title, target, title_prop):
         'title' : title,
     }
 
-def url_to_edit_object(object):
-  url = reverse('admin:%s_%s_change' %(object._meta.app_label,  object._meta.module_name),  args=[object.id] )
-  return u'<a href="%s">Edit %s</a>' %(url,  object.__unicode__())
-
-
-@prop_formatter
+@prop_formatter()
 def link(obj, url, target='_blank', title_prop=None):
     """
     Format a URLField as a link.
@@ -93,7 +96,7 @@ def link(obj, url, target='_blank', title_prop=None):
     """
     return _build_link(obj, url, url, target, title_prop)
 
-@prop_formatter
+@prop_formatter()
 def object_link(obj, related, target='_blank', title_prop=None):
     """
     Format a ForeignKey as a link.
@@ -107,7 +110,7 @@ def object_link(obj, related, target='_blank', title_prop=None):
     url = related.get_absolute_url()
     return _build_link(obj, url, related, target, title_prop)
 
-@prop_formatter
+@prop_formatter()
 def edit_object_link(obj, related, target='_self', title_prop=None):
     """
     Format a ForeignKey as a link to admin change_form page.
@@ -121,7 +124,7 @@ def edit_object_link(obj, related, target='_self', title_prop=None):
     url = urls.url_to_edit_object(related)
     return _build_link(obj, url, related, target, title_prop)
 
-@prop_formatter
+@prop_formatter()
 def thumb(obj, value, w='', h=80):
     """
     Format an ImageField as an img tag
@@ -132,13 +135,18 @@ def thumb(obj, value, w='', h=80):
     :param h: Hardcoded image height (recommended)
     :return: 'img' tag
     """
-    return u'<img src="%(url)s" width="%(width)s" height="%(height)s" />' % {
-        'url': value.url,
-        'width': w,
-        'height': h
-    }
+    try:
+        url = value.url
+    except ValueError:
+        return u'(None)'
+    else:
+        return u'<img src="%(url)s" width="%(width)s" height="%(height)s" />' % {
+            'url': url,
+            'width': w,
+            'height': h
+        }
 
-@prop_formatter
+@prop_formatter()
 def truncate(obj, value, length=80):
     """
     Truncate a CharField's value
@@ -152,7 +160,7 @@ def truncate(obj, value, length=80):
         return value[:length-1] + u'&hellip;'
     return value
 
-@prop_formatter
+@prop_formatter()
 def email(obj, email, target='_blank', title_prop=None):
     """
     Create a 'mailto:' link
@@ -164,7 +172,7 @@ def email(obj, email, target='_blank', title_prop=None):
     """
     return _build_link(obj, 'mailto:%s' % email, email, target, title_prop)
 
-@prop_formatter
+@prop_formatter()
 def phone(obj, number, target='_blank', title_prop=None):
     """
     Create a 'tel:' link
@@ -189,18 +197,29 @@ def lat_long(obj, value, empty='?'):
 
     if lat is not None:
         if lat < 0:
-            lat = '%s&deg;N' % abs(lat)
+            lat = '%s&deg;S' % abs(lat)
         else:
-            lat = '%s&deg;S' % lat
+            lat = '%s&deg;N' % lat
     else:
-        lat = '%s&deg;S' % empty
+        lat = '%s&deg;N' % empty
 
     if lng is not None:
         if lng < 0:
-            lng = '%&deg;W' % abs(lng)
+            lng = '%s&deg;W' % abs(lng)
         else:
             lng = '%s&deg;E' % lng
     else:
         lng = '%s&deg;E' % empty
 
     return '%s %s' % (lat, lng)
+
+@prop_formatter()
+def value(obj, value):
+    """
+    Copy a value to output.
+    Can be used for renaming by setting a custom description.
+    :param obj: instance
+    :param value: value
+    :return: value
+    """
+    return value
