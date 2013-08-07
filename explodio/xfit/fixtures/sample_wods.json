@@ -60,6 +60,16 @@
   }
 },
 {
+  "pk": 7, 
+  "model": "xfit.unit", 
+  "fields": {
+    "modified_at": "2013-08-06T22:30:28.669Z", 
+    "created_at": "2013-08-06T22:30:28.669Z", 
+    "plural": "bodyweights", 
+    "title": "bodyweight"
+  }
+},
+{
   "pk": 1, 
   "model": "xfit.gym", 
   "fields": {
@@ -350,6 +360,51 @@
     "workout_type": 2, 
     "created_at": "2013-08-05T17:14:39.810Z", 
     "slug": "kelly"
+  }
+},
+{
+  "pk": 17, 
+  "model": "xfit.workout", 
+  "fields": {
+    "time_limit": null, 
+    "is_hero": false, 
+    "title": "130806", 
+    "high_round_divisor": 1, 
+    "modified_at": "2013-08-06T22:35:55.511Z", 
+    "notes": "", 
+    "workout_type": 2, 
+    "created_at": "2013-08-06T22:27:37.033Z", 
+    "slug": "130806"
+  }
+},
+{
+  "pk": 18, 
+  "model": "xfit.workout", 
+  "fields": {
+    "time_limit": null, 
+    "is_hero": false, 
+    "title": "Power WOD 130806", 
+    "high_round_divisor": 1, 
+    "modified_at": "2013-08-06T22:35:49.743Z", 
+    "notes": "", 
+    "workout_type": 3, 
+    "created_at": "2013-08-06T22:28:41.567Z", 
+    "slug": "power-wod-130806"
+  }
+},
+{
+  "pk": 19, 
+  "model": "xfit.workout", 
+  "fields": {
+    "time_limit": null, 
+    "is_hero": false, 
+    "title": "Conditioning 130806", 
+    "high_round_divisor": 1, 
+    "modified_at": "2013-08-06T22:35:43.507Z", 
+    "notes": "", 
+    "workout_type": 2, 
+    "created_at": "2013-08-06T22:34:57.609Z", 
+    "slug": "conditioning-130806"
   }
 },
 {
@@ -658,6 +713,39 @@
     "modified_at": "2013-08-05T17:14:16.022Z", 
     "slug": "wall-ball-shot", 
     "title": "Wall Ball Shot"
+  }
+},
+{
+  "pk": 29, 
+  "model": "xfit.exercise", 
+  "fields": {
+    "created_at": "2013-08-06T22:27:29.690Z", 
+    "notes": "", 
+    "modified_at": "2013-08-06T22:27:29.690Z", 
+    "slug": "snatch", 
+    "title": "Snatch"
+  }
+},
+{
+  "pk": 30, 
+  "model": "xfit.exercise", 
+  "fields": {
+    "created_at": "2013-08-06T22:28:29.935Z", 
+    "notes": "", 
+    "modified_at": "2013-08-06T22:28:29.935Z", 
+    "slug": "hang-power-snatch", 
+    "title": "Hang Power Snatch"
+  }
+},
+{
+  "pk": 31, 
+  "model": "xfit.exercise", 
+  "fields": {
+    "created_at": "2013-08-06T22:33:06.698Z", 
+    "notes": "", 
+    "modified_at": "2013-08-06T22:33:06.698Z", 
+    "slug": "ring-dip", 
+    "title": "Ring Dip"
   }
 },
 {
@@ -1309,6 +1397,402 @@
   }
 },
 {
+  "pk": 37, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-08-06T22:27:37.034Z", 
+    "effort_unit": 1, 
+    "modified_at": "2013-08-06T22:35:55.517Z", 
+    "workout": 17, 
+    "item_group": 1, 
+    "reps": 30, 
+    "order": 1, 
+    "reps_unit": 2, 
+    "notes": "", 
+    "effort": 0, 
+    "item_group_repeats": 1, 
+    "exercise": 29
+  }
+},
+{
+  "pk": 38, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-08-06T22:28:41.569Z", 
+    "effort_unit": 1, 
+    "modified_at": "2013-08-06T22:35:49.748Z", 
+    "workout": 18, 
+    "item_group": 1, 
+    "reps": 2, 
+    "order": 1, 
+    "reps_unit": 2, 
+    "notes": "", 
+    "effort": 0, 
+    "item_group_repeats": 5, 
+    "exercise": 30
+  }
+},
+{
+  "pk": 39, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-08-06T22:34:57.611Z", 
+    "effort_unit": 7, 
+    "modified_at": "2013-08-06T22:34:57.611Z", 
+    "workout": 19, 
+    "item_group": 1, 
+    "reps": 10, 
+    "order": 1, 
+    "reps_unit": 2, 
+    "notes": "", 
+    "effort": 1, 
+    "item_group_repeats": 1, 
+    "exercise": 27
+  }
+},
+{
+  "pk": 40, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-08-06T22:34:57.612Z", 
+    "effort_unit": null, 
+    "modified_at": "2013-08-06T22:34:57.612Z", 
+    "workout": 19, 
+    "item_group": 1, 
+    "reps": 10, 
+    "order": 2, 
+    "reps_unit": 2, 
+    "notes": "", 
+    "effort": 1, 
+    "item_group_repeats": 1, 
+    "exercise": 31
+  }
+},
+{
+  "pk": 41, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-08-06T22:34:57.612Z", 
+    "effort_unit": 7, 
+    "modified_at": "2013-08-06T22:34:57.612Z", 
+    "workout": 19, 
+    "item_group": 1, 
+    "reps": 9, 
+    "order": 3, 
+    "reps_unit": 2, 
+    "notes": "", 
+    "effort": 1, 
+    "item_group_repeats": 1, 
+    "exercise": 27
+  }
+},
+{
+  "pk": 42, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-08-06T22:34:57.613Z", 
+    "effort_unit": null, 
+    "modified_at": "2013-08-06T22:35:43.520Z", 
+    "workout": 19, 
+    "item_group": 1, 
+    "reps": 9, 
+    "order": 4, 
+    "reps_unit": 2, 
+    "notes": "", 
+    "effort": 1, 
+    "item_group_repeats": 1, 
+    "exercise": 31
+  }
+},
+{
+  "pk": 43, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-08-06T22:34:57.613Z", 
+    "effort_unit": 7, 
+    "modified_at": "2013-08-06T22:34:57.613Z", 
+    "workout": 19, 
+    "item_group": 1, 
+    "reps": 8, 
+    "order": 5, 
+    "reps_unit": 2, 
+    "notes": "", 
+    "effort": 1, 
+    "item_group_repeats": 1, 
+    "exercise": 27
+  }
+},
+{
+  "pk": 44, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-08-06T22:34:57.614Z", 
+    "effort_unit": null, 
+    "modified_at": "2013-08-06T22:35:43.524Z", 
+    "workout": 19, 
+    "item_group": 1, 
+    "reps": 8, 
+    "order": 6, 
+    "reps_unit": 2, 
+    "notes": "", 
+    "effort": 1, 
+    "item_group_repeats": 1, 
+    "exercise": 31
+  }
+},
+{
+  "pk": 45, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-08-06T22:34:57.614Z", 
+    "effort_unit": 7, 
+    "modified_at": "2013-08-06T22:34:57.614Z", 
+    "workout": 19, 
+    "item_group": 1, 
+    "reps": 7, 
+    "order": 7, 
+    "reps_unit": 2, 
+    "notes": "", 
+    "effort": 1, 
+    "item_group_repeats": 1, 
+    "exercise": 27
+  }
+},
+{
+  "pk": 46, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-08-06T22:34:57.615Z", 
+    "effort_unit": null, 
+    "modified_at": "2013-08-06T22:35:43.528Z", 
+    "workout": 19, 
+    "item_group": 1, 
+    "reps": 7, 
+    "order": 8, 
+    "reps_unit": 2, 
+    "notes": "", 
+    "effort": 1, 
+    "item_group_repeats": 1, 
+    "exercise": 31
+  }
+},
+{
+  "pk": 47, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-08-06T22:34:57.615Z", 
+    "effort_unit": 7, 
+    "modified_at": "2013-08-06T22:34:57.615Z", 
+    "workout": 19, 
+    "item_group": 1, 
+    "reps": 6, 
+    "order": 9, 
+    "reps_unit": 2, 
+    "notes": "", 
+    "effort": 1, 
+    "item_group_repeats": 1, 
+    "exercise": 27
+  }
+},
+{
+  "pk": 48, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-08-06T22:34:57.616Z", 
+    "effort_unit": null, 
+    "modified_at": "2013-08-06T22:35:43.532Z", 
+    "workout": 19, 
+    "item_group": 1, 
+    "reps": 6, 
+    "order": 10, 
+    "reps_unit": 2, 
+    "notes": "", 
+    "effort": 1, 
+    "item_group_repeats": 1, 
+    "exercise": 31
+  }
+},
+{
+  "pk": 49, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-08-06T22:34:57.616Z", 
+    "effort_unit": 7, 
+    "modified_at": "2013-08-06T22:34:57.616Z", 
+    "workout": 19, 
+    "item_group": 1, 
+    "reps": 5, 
+    "order": 11, 
+    "reps_unit": 2, 
+    "notes": "", 
+    "effort": 1, 
+    "item_group_repeats": 1, 
+    "exercise": 27
+  }
+},
+{
+  "pk": 50, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-08-06T22:34:57.617Z", 
+    "effort_unit": null, 
+    "modified_at": "2013-08-06T22:35:43.536Z", 
+    "workout": 19, 
+    "item_group": 1, 
+    "reps": 5, 
+    "order": 12, 
+    "reps_unit": 2, 
+    "notes": "", 
+    "effort": 1, 
+    "item_group_repeats": 1, 
+    "exercise": 31
+  }
+},
+{
+  "pk": 51, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-08-06T22:34:57.618Z", 
+    "effort_unit": 7, 
+    "modified_at": "2013-08-06T22:34:57.617Z", 
+    "workout": 19, 
+    "item_group": 1, 
+    "reps": 4, 
+    "order": 13, 
+    "reps_unit": 2, 
+    "notes": "", 
+    "effort": 1, 
+    "item_group_repeats": 1, 
+    "exercise": 27
+  }
+},
+{
+  "pk": 52, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-08-06T22:34:57.618Z", 
+    "effort_unit": null, 
+    "modified_at": "2013-08-06T22:35:43.540Z", 
+    "workout": 19, 
+    "item_group": 1, 
+    "reps": 4, 
+    "order": 14, 
+    "reps_unit": 2, 
+    "notes": "", 
+    "effort": 1, 
+    "item_group_repeats": 1, 
+    "exercise": 31
+  }
+},
+{
+  "pk": 53, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-08-06T22:34:57.619Z", 
+    "effort_unit": 7, 
+    "modified_at": "2013-08-06T22:34:57.619Z", 
+    "workout": 19, 
+    "item_group": 1, 
+    "reps": 3, 
+    "order": 15, 
+    "reps_unit": 2, 
+    "notes": "", 
+    "effort": 1, 
+    "item_group_repeats": 1, 
+    "exercise": 27
+  }
+},
+{
+  "pk": 54, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-08-06T22:34:57.619Z", 
+    "effort_unit": null, 
+    "modified_at": "2013-08-06T22:35:43.544Z", 
+    "workout": 19, 
+    "item_group": 1, 
+    "reps": 3, 
+    "order": 16, 
+    "reps_unit": 2, 
+    "notes": "", 
+    "effort": 1, 
+    "item_group_repeats": 1, 
+    "exercise": 31
+  }
+},
+{
+  "pk": 55, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-08-06T22:34:57.620Z", 
+    "effort_unit": 7, 
+    "modified_at": "2013-08-06T22:34:57.620Z", 
+    "workout": 19, 
+    "item_group": 1, 
+    "reps": 2, 
+    "order": 17, 
+    "reps_unit": 2, 
+    "notes": "", 
+    "effort": 1, 
+    "item_group_repeats": 1, 
+    "exercise": 27
+  }
+},
+{
+  "pk": 56, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-08-06T22:34:57.620Z", 
+    "effort_unit": null, 
+    "modified_at": "2013-08-06T22:35:43.548Z", 
+    "workout": 19, 
+    "item_group": 1, 
+    "reps": 2, 
+    "order": 18, 
+    "reps_unit": 2, 
+    "notes": "", 
+    "effort": 1, 
+    "item_group_repeats": 1, 
+    "exercise": 31
+  }
+},
+{
+  "pk": 57, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-08-06T22:34:57.621Z", 
+    "effort_unit": 7, 
+    "modified_at": "2013-08-06T22:34:57.621Z", 
+    "workout": 19, 
+    "item_group": 1, 
+    "reps": 1, 
+    "order": 19, 
+    "reps_unit": 2, 
+    "notes": "", 
+    "effort": 1, 
+    "item_group_repeats": 1, 
+    "exercise": 27
+  }
+},
+{
+  "pk": 58, 
+  "model": "xfit.workoutexercise", 
+  "fields": {
+    "created_at": "2013-08-06T22:34:57.621Z", 
+    "effort_unit": null, 
+    "modified_at": "2013-08-06T22:35:43.552Z", 
+    "workout": 19, 
+    "item_group": 1, 
+    "reps": 1, 
+    "order": 20, 
+    "reps_unit": 2, 
+    "notes": "", 
+    "effort": 1, 
+    "item_group_repeats": 1, 
+    "exercise": 31
+  }
+},
+{
   "pk": 1, 
   "model": "xfit.workoutoftheday", 
   "fields": {
@@ -1493,6 +1977,39 @@
     "modified_at": "2013-08-05T17:14:45.204Z", 
     "workout": 16, 
     "day": "2013-08-05"
+  }
+},
+{
+  "pk": 18, 
+  "model": "xfit.workoutoftheday", 
+  "fields": {
+    "created_at": "2013-08-06T22:27:44.219Z", 
+    "gym": 1, 
+    "modified_at": "2013-08-06T22:27:44.219Z", 
+    "workout": 17, 
+    "day": "2013-08-06"
+  }
+},
+{
+  "pk": 19, 
+  "model": "xfit.workoutoftheday", 
+  "fields": {
+    "created_at": "2013-08-06T22:28:45.372Z", 
+    "gym": 2, 
+    "modified_at": "2013-08-06T22:28:45.372Z", 
+    "workout": 18, 
+    "day": "2013-08-06"
+  }
+},
+{
+  "pk": 20, 
+  "model": "xfit.workoutoftheday", 
+  "fields": {
+    "created_at": "2013-08-06T22:35:04.842Z", 
+    "gym": 2, 
+    "modified_at": "2013-08-06T22:35:04.842Z", 
+    "workout": 19, 
+    "day": "2013-08-06"
   }
 }
 ]
