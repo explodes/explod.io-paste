@@ -17,7 +17,7 @@ STYLE_CHOICES = sorted(((item, item) for item in get_all_styles()), key=lambda x
 
 class Paste(models.Model):
 
-    title = models.CharField(max_length=64)
+    title = models.CharField(max_length=64, null=True, blank=True)
     slug = models.CharField(max_length=128, unique=True, db_index=True)
     language = models.CharField(choices=LANGUAGE_CHOICES,
                                 default='python',

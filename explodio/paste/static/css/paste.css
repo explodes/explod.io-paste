@@ -41,6 +41,9 @@ form#paste-form label{
 form#paste-form select, form#paste-form input, form#paste-form textarea, form#paste-form button, form#paste-form label{
     width:400px;
 }
+form#paste-form textarea{
+    font-size:12px;
+}
 #paste{
     margin:0 auto;
     width:800px;

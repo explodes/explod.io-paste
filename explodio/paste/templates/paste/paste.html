@@ -3,7 +3,7 @@
 {% block content %}
 {{ block.super }}
 <article id="paste">
-    <iframe src="{% url 'paste:paste-content' slug=paste.slug %}" width="800" height="600" ></iframe>
+    <iframe src="{% url 'paste:paste-content' slug=paste.slug %}" width="800" height="800" ></iframe>
     <a href="{% url 'paste:index' %}">Make Another Paste</a>
 </article>
 {% endblock content %}
