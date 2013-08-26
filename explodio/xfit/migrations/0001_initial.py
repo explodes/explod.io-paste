@@ -114,9 +114,6 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal(u'xfit', ['WorkoutOfTheDay'])
 
-        # Adding unique constraint on 'WorkoutOfTheDay', fields ['gym', 'workout']
-        db.create_unique(u'xfit_workoutoftheday', ['gym_id', 'workout_id'])
-
         # Adding model 'UserWOD'
         db.create_table(u'xfit_userwod', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
@@ -144,9 +141,6 @@ class Migration(SchemaMigration):
 
 
     def backwards(self, orm):
-        # Removing unique constraint on 'WorkoutOfTheDay', fields ['gym', 'workout']
-        db.delete_unique(u'xfit_workoutoftheday', ['gym_id', 'workout_id'])
-
         # Removing unique constraint on 'GymLocation', fields ['gym', 'slug']
         db.delete_unique(u'xfit_gymlocation', ['gym_id', 'slug'])
 
@@ -216,7 +210,7 @@ class Migration(SchemaMigration):
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
         u'xfit.exercise': {
-            'Meta': {'ordering': "('title',)", 'object_name': 'Exercise'},
+            'Meta': {'ordering': "('title', 'notes')", 'object_name': 'Exercise'},
             'created_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'modified_at': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
@@ -317,7 +311,7 @@ class Migration(SchemaMigration):
             'workout': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'exercises'", 'to': u"orm['xfit.Workout']"})
         },
         u'xfit.workoutoftheday': {
-            'Meta': {'ordering': "('-day', 'gym__order')", 'unique_together': "(('gym', 'workout'),)", 'object_name': 'WorkoutOfTheDay'},
+            'Meta': {'ordering': "('-day', 'gym__order')", 'object_name': 'WorkoutOfTheDay'},
             'created_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'day': ('django.db.models.fields.DateField', [], {}),
             'gym': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'wods'", 'to': u"orm['xfit.Gym']"}),
