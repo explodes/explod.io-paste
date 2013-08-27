@@ -237,7 +237,8 @@ class ExerciseView(XFitView):
 
         if self.request.user.is_authenticated():
             history = models.WODExercise.objects \
-                .for_user(self.request.user)
+                .for_user(self.request.user) \
+                .select_related('user_wod__wod')
             if slug != 'all':
                 history = history.for_exercise(exercise)
             else:

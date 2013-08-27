@@ -10,9 +10,15 @@
           <h3 class="wod-gym">{{ wod_form.wod.gym }}</h3>
           <h4 class="wod-title">{{ wod_form.wod.workout }}</h4>
 
+          {% if wod_form.wod.workout.high_round_divisor > 1 %}
+          <h4 class="wod-title">Repeat {{ wod_form.wod.workout.high_round_divisor }} times</h4>
+          {% endif %}
+
           {% if wod_form.wod.workout.exercises.exists %}
 
+          {% if wod_form.score_form %}
           <div class="wod-score wod-field">{{ wod_form.score_form.as_p }}</div>
+          {% endif %}
 
           <ul class="wod-exercises">
             {% for wod_exercise_form in wod_form.wod_exercise_forms %}
