@@ -4,16 +4,19 @@
 
 <ul id="formlist">
     <li class="wod">
-        <h3 class="wod-gym">
-            <a href="{{ exercise.get_absoute_url }}">{{ exercise }}</a>
-        </h3>
-        <h4 class="wod-title">Exercise History</h4>
+        {% ifequal slug 'all' %}
+            <h3 class="wod-gym">All Exercises</h3>
+            <h4 class="wod-title">Complete History</h4>
+        {% else %}
+            <h3 class="wod-gym"><a href="{{ exercise.get_absoute_url }}">{{ exercise }}</a></h3>
+            <h4 class="wod-title">Exercise History</h4>
+        {% endifequal %}
         <ul class="exercises">
             {% for past in history %}
-                <li class="exercise">{{ past.user_wod.wod.day }} - {{ past }}</li>
+                <li class="exercise">{% if slug != 'all' %}{{ past.user_wod.wod.day }} - {% endif %}{{ past }}</li>
             {% empty %}
                 {% if request.user.is_authenticated %}
-                    <li class="exercise">You have no history with this exercise. Get moving.</li>
+                    <li class="exercise">You have no history here... C'mon!</li>
                 {% else %}
                     <li class="exercise">You aren't logged in! Log in and get moving.</li>
                 {% endif %}

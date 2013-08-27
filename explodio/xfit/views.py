@@ -214,6 +214,7 @@ class ExerciseView(XFitView):
     def get_context_data(self, **kwargs):
         """
         Get the context for this view.
+        - slug (request exercise slug)
         - exercise (exercise object specified by the slug url param)
         - history: (for logged in users, a sequence of WODExercises 
             for the exercise)
@@ -223,27 +224,48 @@ class ExerciseView(XFitView):
         :param kwargs: Request **kwargs
         :return: Context dict
         """
-
         slug = kwargs.get('slug')
 
         day = date.today()
         yesterday = day - timedelta(days=1)
         tomorrow = day + timedelta(days=1)
 
-        exercise = get_object_or_404(models.Exercise, slug=slug)
+        if slug != 'all':
+            exercise = get_object_or_404(models.Exercise, slug=slug)
+        else:
+            exercise = None
 
         if self.request.user.is_authenticated():
             history = models.WODExercise.objects \
-                .for_user(self.request.user) \
-                .for_exercise(exercise)
+                .for_user(self.request.user)
+            if slug != 'all':
+                history = history.for_exercise(exercise)
+            else:
+                history = history.order_by('goal__exercise__title')
+
         else:
             history = None
 
         ctx = {
+            'slug': slug,
             'exercise': exercise,
             'history': history,
         }
         self.add_day_information(ctx)
 
         return ctx
+
+    def get(self, request, *args, **kwargs):
+        """
+        Redirect /exercise/ requests to /exercise/all/, otherwise
+        show the intended /exercise/whatever/ page.
+        """
+
+        slug = kwargs.get('slug')
+
+        if not slug:
+            return http.HttpResponseRedirect(reverse('xfit:exercise', kwargs={'slug': 'all'}))
+        else:
+            ctx = self.get_context_data(**kwargs)
+            return self.render_to_response(ctx)
 

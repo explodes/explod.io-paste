@@ -22,7 +22,10 @@ urlpatterns = patterns('',
     # The workout page.
 
     # The exercise page.
-    url(r'^exercise/(?P<slug>[A-Za-z-0-9-_]+)$',
+    url(r'^exercise/$',
+        views.ExerciseView.as_view(), # Redirects to /exercise/all/
+        name='exercise'),
+    url(r'^exercise/(?P<slug>[A-Za-z-0-9-_]+)/$',
         views.ExerciseView.as_view(),
         name='exercise'),
 
