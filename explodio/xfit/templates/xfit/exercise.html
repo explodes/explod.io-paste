@@ -9,15 +9,19 @@
         </h3>
         <h4 class="wod-title">Exercise History</h4>
         <ul class="exercises">
-            {% for past in history %}
-            <li class="exercise">{{ past.user_wod.wod.day }} - {{ past }}</li>
-            {% empty %}
-                {% if request.user.is_authenticated %}
-                    <li class="exercise">You have no history with this exercise. Get moving.</li>
-                {% else %}
-                    <li class="exercise">You aren't logged in! Log in and get moving.</li>
-                {% endif %}
-            {% endfor %}
+            {% ifequal exercise.slug 'rest' %}
+                <li class="exercise">Stats for this exercise are not recorded.</li>
+            {% else %}
+                {% for past in history %}
+                <li class="exercise">{{ past.user_wod.wod.day }} - {{ past }}</li>
+                {% empty %}
+                    {% if request.user.is_authenticated %}
+                        <li class="exercise">You have no history with this exercise. Get moving.</li>
+                    {% else %}
+                        <li class="exercise">You aren't logged in! Log in and get moving.</li>
+                    {% endif %}
+                {% endfor %}
+            {% endifequal %}
         <ul>
     </li>
 </ul>

@@ -156,6 +156,9 @@ class Workout(models.Model):
         return u'%s%s' % (self.title, notes)
 
 class Exercise(models.Model):
+    """
+    slug 'rest' is special exercise.
+    """
 
     title = models.CharField(max_length=50, help_text='Title of this workout')
     slug = models.SlugField(max_length=50, unique=True,

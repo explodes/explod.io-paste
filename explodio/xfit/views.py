@@ -232,7 +232,7 @@ class ExerciseView(XFitView):
 
         exercise = get_object_or_404(models.Exercise, slug=slug)
 
-        if self.request.user.is_authenticated():
+        if slug != 'rest' and self.request.user.is_authenticated():
             history = models.WODExercise.objects \
                 .for_user(self.request.user) \
                 .for_exercise(exercise)
