@@ -178,6 +178,10 @@ class Exercise(models.Model):
             return u'%s (%s)' % (self.title, self.notes)
         return self.title
 
+    @models.permalink
+    def get_absolute_url(self):
+        return 'xfit:exercise', (), {'slug': self.slug}
+
 class WorkoutExercise(models.Model):
 
     workout = models.ForeignKey(Workout, related_name='exercises',
