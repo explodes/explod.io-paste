@@ -11,7 +11,7 @@ class Migration(SchemaMigration):
         # Adding model 'Paste'
         db.create_table(u'paste_paste', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=64)),
+            ('title', self.gf('django.db.models.fields.CharField')(max_length=64, null=True, blank=True)),
             ('slug', self.gf('django.db.models.fields.CharField')(unique=True, max_length=128, db_index=True)),
             ('language', self.gf('django.db.models.fields.CharField')(default='python', max_length=100)),
             ('style', self.gf('django.db.models.fields.CharField')(default='monokai', max_length=100)),
@@ -43,7 +43,7 @@ class Migration(SchemaMigration):
             'modified_at': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
             'slug': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '128', 'db_index': 'True'}),
             'style': ('django.db.models.fields.CharField', [], {'default': "'monokai'", 'max_length': '100'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '64'})
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '64', 'null': 'True', 'blank': 'True'})
         }
     }
 

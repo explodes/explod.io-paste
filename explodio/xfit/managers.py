@@ -47,7 +47,21 @@ class WorkoutExerciseManager(managers.QuerySetManager):
     """
     Custom manger for WorkoutExercises
     """
-    pass
+
+    class QuerySet(managers.QuerySet):
+
+        def for_user(self, user):
+            return self.filter(user_wod__user=user)
+
+        def for_exercise(self, exercise=None, slug=None, title=None):
+            if exercise is not None:
+                return self.filter(goal__exercise=exercise)
+
+            if slug is not None:
+                return self.filter(goal__exercise__slug=slug)
+
+            if title is not None:
+                return self.filter(goal__exercise__title=title)
 
 class WorkoutOfTheDayManager(managers.QuerySetManager):
     """

@@ -10,6 +10,10 @@ EXPIRES_CHOICES = (
     ('1h', 'One Hour'),
     ('1d', 'One Day'),
     ('2d', 'Two Days'),
+    ('14d', 'Two Weeks'),
+    ('60d', 'Two Months'),
+    ('1y', 'One Year'),
+    ('inf', 'Never'),
 )
 
 
@@ -32,6 +36,14 @@ class PasteForm(forms.ModelForm):
             expiration_date += timedelta(days=1)
         elif expiry == '2d':
             expiration_date += timedelta(days=2)
+        elif expiry == '14d':
+            expiration_date += timedelta(days=14)
+        elif expiry == '60d':
+            expiration_date += timedelta(days=60)
+        elif expiry == '1y':
+            expiration_date += timedelta(days=365)
+        elif expiry == 'inf':
+            expiration_date += timedelta(days=365*250)
         else:
             raise ValueError('Unknown expiration date extension')
 
