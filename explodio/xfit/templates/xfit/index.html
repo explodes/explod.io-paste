@@ -1,14 +1,5 @@
 {% extends "xfit/base.html" %}
 
-{% block header %}
-  <ul id="day-nav">
-    <li id="day-prev"><a href="{% url 'xfit:index' year=yesterday.year month=yesterday.month day=yesterday.day %}">{{ yesterday }}</a></li>
-    <li id="day-now"><a href="{% url 'xfit:index' year=day.year month=day.month day=day.day %}">{{ day }}</a></li>
-    <li id="day-next"><a href="{% url 'xfit:index' year=tomorrow.year month=tomorrow.month day=tomorrow.day %}">{{ tomorrow }}</a></li>
-    <li id="logout"><a href="{% url 'accounts:logout' %}">Logout</a></li>
-  </ul>
-{% endblock %}
-
 {% block content %}
 
   <form method="post" action="">
@@ -26,7 +17,9 @@
           <ul class="wod-exercises">
             {% for wod_exercise_form in wod_form.wod_exercise_forms %}
               <li class="wod-exercise">
-                <div class="wod-goal">{{ wod_exercise_form.goal }}</div>
+                <div class="wod-goal">
+                  <a href="{{ wod_exercise_form.goal.exercise.get_absolute_url }}">{{ wod_exercise_form.goal }}</a>
+                </div>
                 {% if wod_exercise_form.non_field_errors %}
                   <div class="wod-errors">{{ wod_exercise_form.non_field_errors }}</div>
                 {% endif %}

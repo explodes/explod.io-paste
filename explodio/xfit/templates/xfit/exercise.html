@@ -1,0 +1,25 @@
+{% extends "xfit/base.html" %}
+
+{% block content %}
+
+<ul id="formlist">
+    <li class="wod">
+        <h3 class="wod-gym">
+            <a href="{{ exercise.get_absoute_url }}">{{ exercise }}</a>
+        </h3>
+        <h4 class="wod-title">Exercise History</h4>
+        <ul class="exercises">
+            {% for past in history %}
+            <li class="exercise">{{ past.user_wod.wod.day }} - {{ past }}</li>
+            {% empty %}
+                {% if request.user.is_authenticated %}
+                    <li class="exercise">You have no history with this exercise. Get moving.</li>
+                {% else %}
+                    <li class="exercise">You aren't logged in! Log in and get moving.</li>
+                {% endif %}
+            {% endfor %}
+        <ul>
+    </li>
+</ul>
+
+{% endblock content %}

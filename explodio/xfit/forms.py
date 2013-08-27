@@ -63,17 +63,29 @@ class WODExerciseForm(forms.ModelForm, FormHelpersMixin):
 
     def save(self, user_wod, commit=True):
         """
-        Save this WODExercise to a user_wod
+        Save this WODExercise to a user_wod.
+        To save DB, we only save if there are values in the fields.
         :param user_wod: The parent UserWOD to save to
         :param commit: Whether or not the commit the save
         :return: The new or updated WODExercise
         """
-        instance = super(WODExerciseForm, self).save(commit=False)
-        instance.user_wod = user_wod
-        instance.goal = self.goal
-        if commit:
-            instance.save()
-        return instance
+
+        should_save = False
+
+        for field in ('effort', 'reps', 'notes'):
+            if self.cleaned_data.get(field):
+                should_save = True
+                break
+
+        if self.instance and self.instance.id and not should_save:
+            self.instance.delete()
+        elif should_save:
+            instance = super(WODExerciseForm, self).save(commit=False)
+            instance.user_wod = user_wod
+            instance.goal = self.goal
+            if commit:
+                instance.save()
+            return instance
 
 class UserWODForm(object):
 
@@ -256,7 +268,10 @@ class UserWODForm(object):
         if commit:
             user_wod.save()
             for wod_exercise in wod_exercises:
-                wod_exercise.user_wod = user_wod
-                wod_exercise.save()
+                if wod_exercise is not None:
+                    ## wod_exercise would be none if the form above decided
+                    ## to not save one.
+                    wod_exercise.user_wod = user_wod
+                    wod_exercise.save()
 
         return user_wod

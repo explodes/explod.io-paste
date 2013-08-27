@@ -91,6 +91,19 @@ class XFitView(TemplateView):
 
         return wod_forms
 
+    def add_day_information(self, context, day=None):
+        """
+        Add context variables about today, tomorrow, and yesterday.
+        :param context: Context dict to update
+        :param day: Optional day to base tomrrow and yesterday on
+        """
+        if day is None:
+            day = date.today()
+        context['day'] = day
+        context['yesterday'] = day - timedelta(days=1)
+        context['tomorrow'] = day + timedelta(days=1)
+
+
 class IndexView(XFitView):
     """
     The index page.
@@ -131,20 +144,16 @@ class IndexView(XFitView):
         """
         gyms = self.get_gyms()
         day = self.get_day(**kwargs)
-        yesterday = day - timedelta(days=1)
-        tomorrow = day + timedelta(days=1)
         wod_forms = self.get_wod_forms(self.request.POST or None, day=day)
         gyms_with_wods = set((wod_form.wod.gym for wod_form in wod_forms))
         extra_gyms = set(gyms) - set(gyms_with_wods)
 
         ctx = {
             'gyms': gyms,
-            'day': day,
-            'tomorrow': tomorrow,
-            'yesterday': yesterday,
             'wod_forms': wod_forms,
             'extra_gyms': extra_gyms
         }
+        self.add_day_information(ctx, day=day)
 
         return ctx
 
@@ -205,20 +214,27 @@ class ExerciseView(XFitView):
     def get_context_data(self, **kwargs):
         """
         Get the context for this view.
-        - exercise: Exercise object specified by the slug url param
-        - history: For logged in users, a sequence of WODExercises 
-            for the exercise
+        - exercise (exercise object specified by the slug url param)
+        - history: (for logged in users, a sequence of WODExercises 
+            for the exercise)
+        - day (today)
+        - yesterday (previous day)
+        - tomorrow (next day)
         :param kwargs: Request **kwargs
         :return: Context dict
         """
 
         slug = kwargs.get('slug')
 
+        day = date.today()
+        yesterday = day - timedelta(days=1)
+        tomorrow = day + timedelta(days=1)
+
         exercise = get_object_or_404(models.Exercise, slug=slug)
 
-        if request.user.is_authenticated():
+        if self.request.user.is_authenticated():
             history = models.WODExercise.objects \
-                .for_user(request.user) \
+                .for_user(self.request.user) \
                 .for_exercise(exercise)
         else:
             history = None
@@ -227,6 +243,7 @@ class ExerciseView(XFitView):
             'exercise': exercise,
             'history': history,
         }
+        self.add_day_information(ctx)
 
         return ctx
 
