@@ -3,6 +3,7 @@ from datetime import date, timedelta
 from django import http
 from django.contrib import messages
 from django.core.urlresolvers import reverse
+from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView
 
 from explodio.common import iterator
@@ -100,12 +101,25 @@ class XFitContextView(XFitView):
         """
         Supply default context to subclasses of this view.
         - gyms (QuerySet of Gyms)
+        - day (day being displayed)
+        - yesterday (previous day)
+        - tomorrow (next day)
         :param kwargs: Request **kwargs
         :return: Context dict
         """
         ctx = super(XFitContextView, self).get_context_data(**kwargs)
+
+        gyms = self.get_gyms()
+
+        day = self.get_day(**kwargs)
+        yesterday = day - timedelta(days=1)
+        tomorrow = day + timedelta(days=1)
+
         additional = {
-            'gyms' : self.get_gyms(),
+            'gyms': gyms,
+            'day': day,
+            'yesterday': yesterday,
+            'today': today,
         }
         ctx.update(additional)
         return ctx
@@ -142,32 +156,18 @@ class IndexView(XFitContextView):
         Supply context to index.html
         - wod_forms (list of UserWODForm)
         - extra_gyms (gyms that don't have WODs for the given day)
-        - day (day being displayed)
-        - yesterday (previous day)
-        - tomorrow (next day)
         :param kwargs: Request **kwargs
         :return: Context dict
         """
         ctx = super(IndexView, self).get_context_data(**kwargs)
 
         gyms = ctx['gyms']
+        day = ctx['day']
 
-        day = self.get_day(**kwargs)
-        yesterday = day - timedelta(days=1)
-        tomorrow = day + timedelta(days=1)
-
-        wod_forms = self.get_wod_forms(self.request.POST or None, day=day)
+        ctx['wod_forms'] = wod_forms = self.get_wod_forms(self.request.POST or None, day=day)
         gyms_with_wods = set((wod_form.wod.gym for wod_form in wod_forms))
-        extra_gyms = set(gyms) - set(gyms_with_wods)
+        ctx['extra_gyms'] = set(gyms) - set(gyms_with_wods)
 
-        additional = {
-            'wod_forms' : wod_forms,
-            'extra_gyms' : extra_gyms,
-            'day' : day,
-            'yesterday' : yesterday,
-            'tomorrow' : tomorrow,
-        }
-        ctx.update(additional)
         return ctx
 
     def post(self, request, *args, **kwargs):
@@ -218,4 +218,30 @@ class IndexView(XFitContextView):
                 'day': day.day
             }
         ))
+
+
+class ExerciseView(XFitContextView):
+
+    def get_context_data(self, **kwargs):
+        """
+        Get the context for this view.
+        - exercise: Exercise object specified by the slug url param
+        - performance: For logged in users, a list of WODExercises 
+            for the exercise
+        :param kwargs: Request **kwargs
+        :return: Context dict
+        """
+        ctx = super(ExerciseView, self).get_context_data(**kwargs)
+
+        slug = kwargs.get('slug')
+
+        ctx['exercise'] = exercise = get_object_or_404(models.Exercise,
+            slug=slug)
+
+        if request.user.is_authenticated():
+            ctx['peformance'] = models.WODExercise.objects \
+                .for_user(request.user) \
+                .for_exercise(exercise)
+
+        return ctx
 

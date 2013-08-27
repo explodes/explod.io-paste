@@ -125,13 +125,29 @@ class WODExerciseManager(managers.QuerySetManager):
         def active(self):
             """
             Filter by WODExercises with WODs with active Gyms
-            :return: QuerySet of UserWOD
+            :return: QuerySet of WODExercise
             """
             return self.filter(user_wod__wod__gym__active=True)
 
         def inactive(self):
             """
             Filter by WODExercises with WODs with inactive Gyms
-            :return: QuerySet of UserWOD
+            :return: QuerySet of WODExercise
             """
             return self.filter(user_wod__wod__gym__active=False)
+
+        def for_user(self, user):
+            """
+            Filter for a specific user
+            :param user: User who has accomplished WODExercises
+            :return: QuerySet of WODExercise
+            """
+            return self.filter(user_wod__user=user)
+
+        def for_exercise(self, exercise):
+            """
+            Filter for a specific exercise
+            :param exercise: Exercise to filter by
+            :return: QuerySet of WODExercise
+            """
+            return self.filter(goal__exercise=exercise)
